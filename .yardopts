@@ -1,0 +1,4 @@
+--markup markdown
+--title "SES External Text Documentation"
+lib/**/*.rb
+
