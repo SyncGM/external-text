@@ -1,5 +1,5 @@
 #--
-# External Text: MultiLang v2.0.0 by Enelvon
+# External Text: MultiLang v2.0.1 by Enelvon
 # =============================================================================
 # 
 # Summary
@@ -80,7 +80,7 @@ if !$imported["SES - External Text"] ||
                                       $imported["SES - External Text"] < '3.0.0'
   raise("You need SES - External Text v3.0.0 or higher to use SES - MultiLang.")
 end
-$imported["SES - MultiLang"] = '2.0.0'
+$imported["SES - MultiLang"] = '2.0.1'
 
 # DataManager
 # =============================================================================
@@ -112,7 +112,7 @@ class << DataManager
     key = ""
     SES::ExternalText::Languages.each do |l|
       $game_text.clear
-      File.open("Data/Text.txt", "r:BOM|UTF-8") do |file|
+      File.open("Data/#{l}.txt", "r:BOM|UTF-8") do |file|
         file.readlines.each_with_index do |v,i|
           next if v =~ /(^\s*(#|\/\/).*|^\s*$)/
           SES::ExternalText::Tags.each_pair do |k,p|

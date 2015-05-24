@@ -1,5 +1,5 @@
 #--
-# External Text v3.0.1 by Enelvon
+# External Text v3.0.2 by Enelvon
 # =============================================================================
 # 
 # Summary
@@ -308,7 +308,8 @@ module SES
                                          
       /^\[Face\]\s*(.+),(?:\s*)(\d+)/i =>
         proc do |name, index|
-          $game_text[@key][0][0], text[key][0][1] = name, index.to_i
+          $game_text[@key][0][0] = name
+          $game_text[key][0][1] = index.to_i
         end,
                         
       /^\[AFace\]\s*(\d+)/i =>
@@ -371,7 +372,7 @@ module SES
   end
 end
 
-($imported ||= {})["SES - External Text"] = '3.0.0'
+($imported ||= {})["SES - External Text"] = '3.0.2'
 
 # DataManager
 # =============================================================================
