@@ -1,5 +1,5 @@
 #--
-# External Text v3.0.0 by Enelvon
+# External Text v3.0.1 by Enelvon
 # =============================================================================
 # 
 # Summary
@@ -443,10 +443,11 @@ class Game_Message
     lines[i] = ''
     if i % 4 == 0
       if name && SES::ExternalText::NameStyle == :text && @name
-        lines[i] << @name << cc
+        lines[i] << @name
         i += 1
         lines[i] = ''
       end
+      lines[i] << cc
     end
     return i
   end
@@ -489,7 +490,7 @@ class Game_Message
   #   nil if there are no color codes in use
   def get_color(text)
     cc = nil
-    convert_escape_characters(text).gsub(/\eC(\[(\w+)\])?/i) { |s| cc = s }
+    convert_escape_characters(text).gsub(/\eC(?:\[\w+?\])?/i) { |s| cc = s }
     return cc
   end
   
@@ -554,6 +555,14 @@ class Game_Message
     @texts = text
   end
   
+  # Removes all escape characters from the given text and returns it.
+  #
+  # @param text [String] the text to adjust
+  # @return [String] the text with escape characters removed
+  def slice_escape_characters(text)
+    convert_escape_characters(text).gsub(/\e(\w)(\[(\w+)\])?/) {""}
+  end
+  
   # Checks if given text is too wide for the message window.
   #
   # @param text [String] the text to check
@@ -567,7 +576,7 @@ class Game_Message
     @dummy_bitmap ||= Bitmap.new(1,1)
     width = @message_width
     width -= 112 unless @face_name.empty?
-    win.text_size(win.slice_escape_characters(text)).width > width
+    @dummy_bitmap.text_size(slice_escape_characters(text)).width > width
   end
 end
 
