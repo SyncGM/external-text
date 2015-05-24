@@ -1,12 +1,12 @@
-﻿External Text v3.0 by Enelvon
+External Text v3.1.0 by Enelvon
 =============================================================================
 
 Summary
 -----------------------------------------------------------------------------
-This script allows you to create a text file and use its contents in the
+This script allows you to create text files and use their contents in the
 in-game message windows. It will automatically wrap text, allowing you to
 avoid worrying about whether or not your text will fit in the message window.
-It uses a simple tagging system to divide the file into messages and supply
+It uses a simple tagging system to divide the files into messages and supply
 them with faces to be displayed (if desired).
 
 Compatibility Information
@@ -22,8 +22,11 @@ be reset, and it is possible to add handlers for other persistent codes.
 
 Usage
 -----------------------------------------------------------------------------
-Create a text file in the Data folder. Name it Text. There, you've done the
-hard part! To add text to the file, use this format:
+Create a directory named Text in the Data folder for your project. Inside of
+this directory, create a text file -- there, you've done the hard part! You
+can add as many text files to the folder as you'd like, and can even add
+subfolders for organization. The names don't matter, so do whatever works for
+you! To add text to the files, use this format:
 
    `[Key] !Key!`
    `[Face] !File!, !Index!`
@@ -91,7 +94,7 @@ them.
 As of v3.0, the `[Line]` tag is deprecated (though still usable for backwards
 compatibility). Add a new line instead.
 
-You can comment out lines by beginning them with a # or //. You can use this
+You can comment out lines by beginning them with a or //. You can use this
 to divide your Text file into sections, to help with organization.
 
 v1.5 also alters how text tags are checked - they are now stored in a hash
@@ -151,7 +154,7 @@ You can also display multiple sections of text at once with this:
        for all keys that include it. This is simply a faster way to display
        scenes. As an example, let's say we have a number of messages for
        our introduction. Their keys are called Intro 1 through Intro 12.
-       Instead of 12 calls of `text("Intro #")`, we could use one of these:
+       Instead of 12 calls of `text("Intro ")`, we could use one of these:
 
        `block_text(/^Intro \d+/)`
 

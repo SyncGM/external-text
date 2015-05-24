@@ -1,4 +1,4 @@
-External Text: MultiLang v2.0.0 by Enelvon
+External Text: MultiLang v2.1.0 by Enelvon
 =============================================================================
 
 Summary
@@ -10,21 +10,22 @@ selected in between gaming sessions.
 Compatibility Information
 -----------------------------------------------------------------------------
 **Required Scripts:**
-Puts this script below Materials and above Main. It must also be below
-SES - External Text v3.0.0 or higher.
+SES - External Text v3.1.0 or higher
 
 **Known Incompatibilities:**
 None.
 
 Usage
 -----------------------------------------------------------------------------
-Remember Text.txt from External Text? Yeah, you're not using that anymore.
-Go to SES::ExternalText in this script and find the Languages array. Add as
-many as you'd like. Now create a text file for each language you added, with
-the name being that of the language in question. Make sure to place it in
-the Data folder. Treat each of them like you would Text.txt - they work the
-same way. Make sure all of your keys are the same in each file - if the keys
-are different, the languages won't be compatible with each other.
+Create a directory named Text in the Data folder for your project. Inside of
+this directory, create a new directory with the name of each language that you
+intend to include in your project -- make sure to add the names of these
+directories to the Languages array in SES::ExternalText. Any text files that
+you place in these language directories will be read into the project, so feel
+free to organize them however you'd like! You can even add subfolders to the
+language folders. The only thing that you *need* to do is use the same keys
+in each language -- if you don't, the game won't know where to look for text
+in alternate languages!
 
 Note that each language can (and probably should) have different text for
 the language select screen. The default is in English, obviously. To change
@@ -58,5 +59,5 @@ information.
 
 Installation
 -----------------------------------------------------------------------------
-Puts this script below Materials and above Main. It must also be below
-SES - External Text v3.0.0 or higher.
+Put this script below Materials and above Main. It must also be below
+SES - External Text v3.1.0 or higher.

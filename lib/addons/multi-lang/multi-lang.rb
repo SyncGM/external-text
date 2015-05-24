@@ -1,5 +1,5 @@
 #--
-# External Text: MultiLang v2.0.1 by Enelvon
+# External Text: MultiLang v2.1.0 by Enelvon
 # =============================================================================
 # 
 # Summary
@@ -11,21 +11,22 @@
 # Compatibility Information
 # -----------------------------------------------------------------------------
 # **Required Scripts:**
-# Puts this script below Materials and above Main. It must also be below
-# SES - External Text v3.0.0 or higher.
+# SES - External Text v3.1.0 or higher
 # 
 # **Known Incompatibilities:**
 # None.
 # 
 # Usage
 # -----------------------------------------------------------------------------
-# Remember Text.txt from External Text? Yeah, you're not using that anymore.
-# Go to SES::ExternalText in this script and find the Languages array. Add as
-# many as you'd like. Now create a text file for each language you added, with
-# the name being that of the language in question. Make sure to place it in
-# the Data folder. Treat each of them like you would Text.txt - they work the
-# same way. Make sure all of your keys are the same in each file - if the keys
-# are different, the languages won't be compatible with each other.
+# Create a directory named Text in the Data folder for your project. Inside of
+# this directory, create a new directory with the name of each language that you
+# intend to include in your project -- make sure to add the names of these
+# directories to the Languages array in SES::ExternalText. Any text files that
+# you place in these language directories will be read into the project, so feel
+# free to organize them however you'd like! You can even add subfolders to the
+# language folders. The only thing that you *need* to do is use the same keys
+# in each language -- if you don't, the game won't know where to look for text
+# in alternate languages!
 # 
 # Note that each language can (and probably should) have different text for
 # the language select screen. The default is in English, obviously. To change
@@ -59,8 +60,8 @@
 # 
 # Installation
 # -----------------------------------------------------------------------------
-# Puts this script below Materials and above Main. It must also be below
-# SES - External Text v3.0.0 or higher.
+# Put this script below Materials and above Main. It must also be below
+# SES - External Text v3.1.0 or higher.
 # 
 #++
 module SES
@@ -77,10 +78,10 @@ end
 
 $imported ||= {}
 if !$imported["SES - External Text"] ||
-                                      $imported["SES - External Text"] < '3.0.0'
-  raise("You need SES - External Text v3.0.0 or higher to use SES - MultiLang.")
+                                      $imported["SES - External Text"] < '3.1.0'
+  raise("You need SES - External Text v3.1.0 or higher to use SES - MultiLang.")
 end
-$imported["SES - MultiLang"] = '2.0.1'
+$imported["SES - MultiLang"] = '2.1.0'
 
 # DataManager
 # =============================================================================
@@ -94,8 +95,11 @@ class << DataManager
     language = SES::ExternalText::Languages[0]
     File.open("Game.ini", "r:BOM|UTF-8") do |f|
       f.readlines.each do |line|
-        if line =~ /Language=(\w+)/
-          language = $1 if SES::ExternalText::Languages.include?($1)
+        begin
+          if line =~ /Language=(\w+)/
+            language = $1 if SES::ExternalText::Languages.include?($1)
+          end
+        rescue
         end
       end
     end
@@ -112,18 +116,20 @@ class << DataManager
     key = ""
     SES::ExternalText::Languages.each do |l|
       $game_text.clear
-      File.open("Data/#{l}.txt", "r:BOM|UTF-8") do |file|
-        file.readlines.each_with_index do |v,i|
-          next if v =~ /(^\s*(#|\/\/).*|^\s*$)/
-          SES::ExternalText::Tags.each_pair do |k,p|
-            if v =~ k
-              p.call(*$~[1..-1])
-              v.clear
+      SES::ExternalText.each_file("Data/Text/#{l}") do |f|
+        File.open(f, "r:BOM|UTF-8") do |file|
+          file.readlines.each_with_index do |v,i|
+            next if v =~ /(^\s*(#|\/\/).*|^\s*$)/
+            SES::ExternalText::Tags.each_pair do |k,p|
+              if v =~ k
+                p.call(*$~[1..-1])
+                v.clear
+              end
             end
-          end
-          if SES::ExternalText.key && !v.empty?
-            v = "\n#{v}" unless $game_text[SES::ExternalText.key][1].empty?
-            $game_text[SES::ExternalText.key][1] << v
+            if SES::ExternalText.key && !v.empty?
+              v = "\n#{v}" unless $game_text[SES::ExternalText.key][1].empty?
+              $game_text[SES::ExternalText.key][1] << v
+            end
           end
         end
       end
@@ -138,7 +144,7 @@ class << DataManager
   # @return [void]
   def load_normal_database
     en_et_dm_lnd
-    if FileTest.exist?("Data/#{SES::ExternalText::Languages[0]}.txt")
+    if FileTest.directory?("Data/Text/#{SES::ExternalText::Languages[0]}")
       create_text
     end
     $game_text = load_data("Data/#{check_language}.rvdata2")
@@ -149,7 +155,7 @@ class << DataManager
   # @return [void]
   def load_battle_test_database
     en_et_dm_lbd
-    if FileTest.exist?("Data/#{SES::ExternalText::Languages[0]}.txt")
+    if FileTest.directory?("Data/Text/#{SES::ExternalText::Languages[0]}")
       create_text
     end
     $game_text = load_data("Data/#{check_language}.rvdata2")

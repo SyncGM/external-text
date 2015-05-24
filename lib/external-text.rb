@@ -1,13 +1,13 @@
 #--
-# External Text v3.0.2 by Enelvon
+# External Text v3.1.0 by Enelvon
 # =============================================================================
 # 
 # Summary
 # -----------------------------------------------------------------------------
-# This script allows you to create a text file and use its contents in the
+# This script allows you to create text files and use their contents in the
 # in-game message windows. It will automatically wrap text, allowing you to
 # avoid worrying about whether or not your text will fit in the message window.
-# It uses a simple tagging system to divide the file into messages and supply
+# It uses a simple tagging system to divide the files into messages and supply
 # them with faces to be displayed (if desired).
 # 
 # Compatibility Information
@@ -23,8 +23,11 @@
 # 
 # Usage
 # -----------------------------------------------------------------------------
-# Create a text file in the Data folder. Name it Text. There, you've done the
-# hard part! To add text to the file, use this format:
+# Create a directory named Text in the Data folder for your project. Inside of
+# this directory, create a text file -- there, you've done the hard part! You
+# can add as many text files to the folder as you'd like, and can even add
+# subfolders for organization. The names don't matter, so do whatever works for
+# you! To add text to the files, use this format:
 # 
 #    `[Key] !Key!`
 #    `[Face] !File!, !Index!`
@@ -355,11 +358,21 @@ module SES
         end,
     }
     
-    # Returns the current key during serialization.
+    # Iterates through all files in a chain of directories.
     #
-    # @return [String] the current key
-    def self.key
-      @key
+    # @param dir [String] the base directory from which to iterate
+    # @yield performs operations on files in a given directory chain
+    # @yieldparam [String] file the path to a file
+    # @return [void]
+    def self.each_file(dir, &block)
+      Dir.new(dir).entries.each do |file|
+        next if file[/^\.+$/]
+        if FileTest.directory?("#{dir}/#{file}")
+          each_file("#{dir}/#{file}", &block)
+        else
+          yield "#{dir}/#{file}"
+        end
+      end
     end
     
     # Gets the text referenced by a particular key.
@@ -368,11 +381,18 @@ module SES
     # @return [String] the text referenced by the given key
     def self.get_text(key)
       return $game_text[key].nil? ? nil : $game_text[key][1].strip
-    end    
+    end
+    
+    # Returns the current key during serialization.
+    #
+    # @return [String] the current key
+    def self.key
+      @key
+    end
   end
 end
 
-($imported ||= {})["SES - External Text"] = '3.0.2'
+($imported ||= {})["SES - External Text"] = '3.1.0'
 
 # DataManager
 # =============================================================================
@@ -385,18 +405,20 @@ class << DataManager
   # @return [void]
   def create_text
     $game_text = {}
-    File.open("Data/Text.txt", "r:BOM|UTF-8") do |file|
-      file.readlines.each_with_index do |v,i|
-        next if v =~ /(^\s*(#|\/\/).*|^\s*$)/
-        SES::ExternalText::Tags.each_pair do |k,p|
-          if v =~ k
-            p.call(*$~[1..-1])
-            v.clear
+    SES::ExternalText.each_file('Data/Text') do |f|
+      File.open(f, "r:BOM|UTF-8") do |file|
+        file.readlines.each_with_index do |v,i|
+          next if v =~ /(^\s*(#|\/\/).*|^\s*$)/
+          SES::ExternalText::Tags.each_pair do |k,p|
+            if v =~ k
+              p.call(*$~[1..-1])
+              v.clear
+            end
           end
-        end
-        if SES::ExternalText.key && !v.empty?
-          v = "\n#{v}" unless $game_text[SES::ExternalText.key][1].empty?
-          $game_text[SES::ExternalText.key][1] << v
+          if SES::ExternalText.key && !v.empty?
+            v = "\n#{v}" unless $game_text[SES::ExternalText.key][1].empty?
+            $game_text[SES::ExternalText.key][1] << v
+          end
         end
       end
     end
@@ -411,7 +433,7 @@ class << DataManager
   # @return [void]
   def load_battle_test_database
     en_et_dm_lbd
-    create_text if FileTest.exist?("Data/Text.txt")
+    create_text if FileTest.directory?("Data/Text")
     $game_text = load_data("Data/Text.rvdata2") unless $game_text
   end
   
@@ -421,7 +443,7 @@ class << DataManager
   # @return [void]
   def load_normal_database
     en_et_dm_lnd
-    create_text if FileTest.exist?("Data/Text.txt")
+    create_text if FileTest.directory?("Data/Text")
     $game_text = load_data("Data/Text.rvdata2") unless $game_text
   end
 end
