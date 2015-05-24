@@ -1,5 +1,5 @@
 #--
-# External Text: Database v1.0.0 by Enelvon
+# External Text: Database v1.0.1 by Enelvon
 # =============================================================================
 # 
 # Summary
@@ -121,7 +121,7 @@ if !$imported["SES - External Text"] ||
   raise("You need SES - External Text v3.1.0 or higher to use SES - External" <<
                                                                "Text Database.")
 end
-$imported["SES - External Text Database"] = '1.0.0'
+$imported["SES - External Text Database"] = '1.0.1'
 
 # RPG::System::Terms
 # ============================================================================
@@ -221,7 +221,7 @@ SES::ExternalText::Override.each_pair do |k,v|
     klass.send(:alias_method, :"en_etd_#{method}", method) rescue nil
     klass.send(:define_method, method) do
       en_generated_text_key = ''
-      if instance_variable_get("@#{id}")
+      if instance_variable_get("@id")
         en_generated_text_key = "#{klass_name}_#{@id}_#{method}"
       else
         en_generated_text_key = "#{klass_name}_#{method}"
