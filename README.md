@@ -171,9 +171,11 @@ like this:
   `block_text(!Key!, !Start!, !End!)`
 
  `!Key!` is the same as it would be for the original `block_text`.
+ 
  `!Start!` is an integer referencing the starting point for text iteration:
   rather than display every piece of text whose key matches the given
   `!Key!`, it will start at the nth occurence of `!Key!`.
+  
  `!End!` is an integer referencing the end point for text iteration. Only
   text up to the nth occurence will be displayed.
 
@@ -196,10 +198,13 @@ Text feature by using this call:
 
   `scrolling_text(!Key!, !Speed!, !NoFast!)`
 
-`!Key!` is obviously the key for the text. `!Speed!` is how quickly you want
-it to move - 2 is the default. !NoFast! is whether or not the player should be
-blocked from hold the action key to increase the scroll speed - false allows
-them to do so, true prevents it. The default is false.
+  `!Key!` is obviously the key for the text.
+  
+  `!Speed!` is how quickly you want it to move - 2 is the default.
+  
+  `!NoFast!` is whether or not the player should be
+   blocked from hold the action key to increase the scroll speed - false allows
+   them to do so, true prevents it. The default is false.
 
 As of v3.2, you may override any key with the contents of another on a
 file-by-file basis. To provide an override, use this script call:
@@ -207,6 +212,7 @@ file-by-file basis. To provide an override, use this script call:
   `$game_system.add_override(!Key1!, !Key2!)`
 
   `!Key1!` is the key that you want to override.
+  
   `!Key2!` is the key that contains the value that `!Key1!` should now
    reference.
 
