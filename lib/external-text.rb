@@ -1,5 +1,5 @@
 #--
-# External Text v3.1.0 by Enelvon
+# External Text v3.2.0 by Enelvon
 # =============================================================================
 # 
 # Summary
@@ -137,46 +137,46 @@
 # -----------------------------------------------------------------------------
 # To display text, place this in an event's script command:
 # 
-#    `text(!Key!)`
+#   `text(!Key!)`
 # 
-#    `!Key!` should be replaced with a string corresponding to the key of the
-#        text that you want to display. As an example, if I had a text key
-#        called Intro, I would use this to call it:
+#   `!Key!` should be replaced with a string corresponding to the key of the
+#    text that you want to display. As an example, if I had a text key called
+#    Intro, I would use this to call it:
 # 
-#        `text("Intro")`
+#   `text('Intro')`
 # 
 # You can also display multiple sections of text at once with this:
 # 
-#    `block_text(!Key!)`
+#   `block_text(!Key!)`
 # 
-#    `!Key!` should be replaced with either a Regular Expression or a string.
-#        If you use a regular expression, it will display the text for all
-#        keys that match it. If you use a string, it will display the text
-#        for all keys that include it. This is simply a faster way to display
-#        scenes. As an example, let's say we have a number of messages for
-#        our introduction. Their keys are called Intro 1 through Intro 12.
-#        Instead of 12 calls of `text("Intro #")`, we could use one of these:
+#   `!Key!` should be replaced with either a Regular Expression or a string.
+#    If you use a regular expression, it will display the text for all
+#    keys that match it. If you use a string, it will display the text
+#    for all keys that include it. This is simply a faster way to display
+#    scenes. As an example, let's say we have a number of messages for
+#    our introduction. Their keys are called Intro 1 through Intro 12.
+#    Instead of 12 calls of `text("Intro #")`, we could use one of these:
 # 
-#        `block_text(/^Intro \d+/)`
+#   `block_text(/^Intro \d+/)`
 # 
-#        `block_text("Intro")`
+#   `block_text("Intro")`
 # 
-#        The first one is better, of course, but both work. The problem with
-#        the second comes in if we have another key that's similar - let's
-#        say Ralph's Introduction. It would be called too, because it contains
-#        Intro. It would not be called with the first one.
+#   The first one is better, of course, but both work. The problem with
+#    the second comes in if we have another key that's similar - let's
+#    say Ralph's Introduction. It would be called too, because it contains
+#    Intro. It would not be called with the first one.
 #
 # v3.0 has added two optional parameters to `block_text`. It can now be called
 # like this:
 #
-#    `block_text(!Key!, !Start!, !End!)`
+#   `block_text(!Key!, !Start!, !End!)`
 #
-#    `!Key!` is the same as it would be for the original `block_text`.
-#    `!Start!` is an integer referencing the starting point for text iteration:
-#        rather than display every piece of text whose key matches the given
-#        `!Key!`, it will start at the nth occurence of `!Key!`.
-#    `!End!` is an integer referencing the end point for text iteration. Only
-#        text up to the nth occurence will be displayed.
+#  `!Key!` is the same as it would be for the original `block_text`.
+#  `!Start!` is an integer referencing the starting point for text iteration:
+#   rather than display every piece of text whose key matches the given
+#   `!Key!`, it will start at the nth occurence of `!Key!`.
+#  `!End!` is an integer referencing the end point for text iteration. Only
+#   text up to the nth occurence will be displayed.
 #
 # v3.0 also adds the `block_text_us` method. It takes the same parameters as
 # `block_text`, but does not sort the keys before iterating.
@@ -184,29 +184,61 @@
 # As of v1.7, there are two get_text calls. One can be used only in an event,
 # and is used like this:
 # 
-#    `get_text(!Key!)`
+#   `get_text(!Key!)`
 # 
 # I would recommend you use this with variable assignment, as it has no real
 # use otherwise. !Key! is obviously the key of the text you want to use. You
 # can also use a form of this command in your own scripts, by calling this:
 # 
-#    `SES::ExternalText.get_text(key)`
+#   `SES::ExternalText.get_text(key)`
 # 
 # As of v2.0, you can now use External Text in conjunction with the Scrolling
 # Text feature by using this call:
 # 
-#    `scrolling_text(!Key!, !Speed!, !NoFast!)`
+#   `scrolling_text(!Key!, !Speed!, !NoFast!)`
 # 
 # `!Key!` is obviously the key for the text. `!Speed!` is how quickly you want
 # it to move - 2 is the default. !NoFast! is whether or not the player should be
 # blocked from hold the action key to increase the scroll speed - false allows
 # them to do so, true prevents it. The default is false.
+#
+# As of v3.2, you may override any key with the contents of another on a
+# file-by-file basis. To provide an override, use this script call:
+#
+#   `$game_system.add_override(!Key1!, !Key2!)`
+#
+#   `!Key1!` is the key that you want to override.
+#   `!Key2!` is the key that contains the value that `!Key1!` should now
+#    reference.
+#
+# As an example, let's say I'm doing an alignment system for an NPC. If I want
+# to change an NPC's default dialogue (let's say it's named NeutralDialogue) to
+# the evil dialogue, I might use this:
+#
+#   `$game_system.add_override('NeutralDialogue', 'EvilDialogue')
+#
+# You can also remove overrides with this:
+#
+#   `$game_system.delete_override(!Key!)`
+#
+#   `!Key!` is the key whose override you want to delete.
+#
+# Using the above example, I might use this to reset NeutralDialogue:
+#
+#   `$game_system.delete_override('NeutralDialogue')
+#
+# You do not need to delete an override before replacing it. If you call
+# add_override for a key that already has an override, the override will be
+# replaced. Overrides are fully compatible with both MultiLang and Database.
 # 
 # Aliased Methods
 # -----------------------------------------------------------------------------
 # * `module DataManager`
 #     - `self.load_battle_test_database`
 #     - `self.load_normal_database`
+#
+# * `class Game_System`
+#     - `initialize`
 #
 # * `class Window_Base`
 #     - `convert_escape_characters`
@@ -224,6 +256,11 @@
 # -----------------------------------------------------------------------------
 # * `module DataManager`
 #     - `self.create_text`
+#
+# * `class Game_System`
+#     - `add_override`
+#     - `delete_override`
+#     - `get_override`
 #
 # * `class Game_Message`
 #     - `add_line`
@@ -278,7 +315,7 @@ module SES
     # Add faces here. The format is "Name" => ["Faceset", Index],
     Faces = {
       
-      "Ralph" => ["Actor1", 0],
+      'Ralph' => ['Actor1', 0],
       
     }
     
@@ -380,7 +417,13 @@ module SES
     # @param key [String] the key referring to the desired text
     # @return [String] the text referenced by the given key
     def self.get_text(key)
-      return $game_text[key].nil? ? nil : $game_text[key][1].strip
+      return nil unless $game_text
+      if $game_system
+        $game_system.get_override(key) ||
+        ($game_text[key].nil? ? nil : $game_text[key][1].strip)
+      else
+        $game_text[key].nil? ? nil : $game_text[key][1].strip
+      end
     end
     
     # Returns the current key during serialization.
@@ -389,10 +432,69 @@ module SES
     def self.key
       @key
     end
+    
+    # TextWrapper
+    # =========================================================================
+    # Wrapper class for string constants and variables to allow proper access
+    # to game text.
+    class TextWrapper
+      attr_reader :is_key
+      
+      # Creates a new instance of TextWrapper.
+      #
+      # @param src [String] the name of the constant or variable that contains
+      #   the default value of the wrapper; may also be a key for External Text
+      # @param obj [Object] the object that contains the constant or variable;
+      #   if nil, src is treated as an External Text key
+      # @return [TextWrapper] a new instance of TextWrapper
+      def initialize(src, obj = nil)
+        @is_key = false
+        klass_name = (obj.class == Module ? obj.name : obj.class.name)
+        klass_name = klass_name[/(?:\w+::)?(\w+)/, 1]
+        if (id = obj.instance_variable_get(:@id))
+          @key = "#{klass_name}_#{id}_#{src}"
+        elsif obj.nil? then @is_key = true and @key = src
+        else @key = "#{klass_name}_#{src}" end
+        if obj.nil? then @string = "Missing Key: #{src}."
+        else
+          if src[/^[A-Z]/] &&
+                     (obj.class == Module ? obj : obj.class).const_defined?(src)
+            @string = obj.const_get(src)
+          else @string = obj.instance_variable_get("@#{src}") end
+        end
+      end
+      
+      # Handles unknown methods. If a String would respond to them, they are
+      # passed to the String form of the wrapper.
+      #
+      # @param method [Symbol] the name of the method
+      # @param args   [Array] the arguments passed to the method
+      # @return [Object] whatever the method returns, if a string can handle it
+      def method_missing(method, *args, &block)
+        (s = to_s).respond_to?(method) ? s.send(method, *args, &block) : super
+      end
+      
+      # Checks if a String can respond to the passed method.
+      #
+      # @param method [Symbol,String] the name of a method
+      # @return [Boolean] whether or not Strings respond to the method
+      def respond_to?(method)
+        return @string.respond_to?(method)
+      end
+      
+      # Converts the wrapper to its string form.
+      #
+      # @return [String] the string form of the wrapper
+      def to_s
+        SES::ExternalText.get_text(@key) || @string
+      end
+      # Alias for to_s. Required for proper treatment.
+      alias_method :to_str, :to_s
+    end
   end
 end
 
-($imported ||= {})["SES - External Text"] = '3.1.0'
+($imported ||= {})['SES - External Text'] = '3.2.0'
 
 # DataManager
 # =============================================================================
@@ -406,7 +508,7 @@ class << DataManager
   def create_text
     $game_text = {}
     SES::ExternalText.each_file('Data/Text') do |f|
-      File.open(f, "r:BOM|UTF-8") do |file|
+      File.open(f, 'r:BOM|UTF-8') do |file|
         file.readlines.each_with_index do |v,i|
           next if v =~ /(^\s*(#|\/\/).*|^\s*$)/
           SES::ExternalText::Tags.each_pair do |k,p|
@@ -433,8 +535,8 @@ class << DataManager
   # @return [void]
   def load_battle_test_database
     en_et_dm_lbd
-    create_text if FileTest.directory?("Data/Text")
-    $game_text = load_data("Data/Text.rvdata2") unless $game_text
+    create_text if FileTest.directory?('Data/Text')
+    $game_text = load_data('Data/Text.rvdata2') unless $game_text
   end
   
   alias_method :en_et_dm_lnd, :load_normal_database
@@ -443,8 +545,46 @@ class << DataManager
   # @return [void]
   def load_normal_database
     en_et_dm_lnd
-    create_text if FileTest.directory?("Data/Text")
-    $game_text = load_data("Data/Text.rvdata2") unless $game_text
+    create_text if FileTest.directory?('Data/Text')
+    $game_text = load_data('Data/Text.rvdata2') unless $game_text
+  end
+end
+
+# Game_System
+# =============================================================================
+# Holds basic system information for the game.
+class Game_System
+  
+  alias_method :en_et_gs_i, :initialize
+  def initialize
+    en_et_gs_i
+    @text_overrides = {}
+  end
+  
+  # Adds an override to the text overrides hash.
+  #
+  # @param key [String] the key of the text being overridden
+  # @param value [String] the text of the override
+  # @return [void]
+  def add_override(key, value)
+    @text_overrides[key] = SES::ExternalText::TextWrapper.new(value)
+  end
+  
+  # Deletes an override from the text overrides hash.
+  #
+  # @param key [String] the override to delete
+  # @return [void]
+  def delete_override(key)
+    @text_overrides.delete(key)
+  end
+  
+  # Gets the value of a text override, if it exists.
+  #
+  # @param key [String] the override to grab
+  # @return [String,NilClass] the value of the override, or nil if it does not
+  #   exist
+  def get_override(key)
+    @text_overrides[key]
   end
 end
 

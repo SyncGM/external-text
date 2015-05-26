@@ -1,4 +1,4 @@
-External Text: Database v1.0.0 by Enelvon
+External Text: Database v1.1.0 by Enelvon
 =============================================================================
 
 Summary
@@ -11,18 +11,11 @@ the start, so your translation will be taken to the next level!
 Compatibility Information
 -----------------------------------------------------------------------------
 **Required Scripts:**
-SES External Text v3.1.0 or higher
+SES External Text v3.2.0 or higher
 (Optional) SES External Text: MultiLang v2.1.0 or higher
 
 **Known Incompatibilities:**
 None.
-
-Warning
------------------------------------------------------------------------------
-v1.0.0 does not yet include support for mid-game changes to text that it
-overrides. If you intend to change text mid-game, you will need to leave out
-those override keys from your text files. v1.1.0, whenever it is released,
-should contain support for this.
 
 Usage
 -----------------------------------------------------------------------------
@@ -72,9 +65,21 @@ sprites and map battlebacks? Those are strings." The answer is "Absolutely!"
 Just add :note, :character_name, :battleback_floor_name, or whatever to the
 arrays, and you're golden. Have fun!
 
+Aliased Methods
+-----------------------------------------------------------------------------
+* `class Game_Actor`
+    - `setup`
+
 Overwritten Methods
 -----------------------------------------------------------------------------
-Anything you add, plus everything in RPG::System::Terms.
+Anything you add, plus everything in RPG::System::Terms. Additionally:
+
+* `class Game_Actor`
+    - `set_graphic`
+
+* `class Game_Interpreter`
+    - `command_320`
+    - `command_324`
 
 License
 -----------------------------------------------------------------------------
@@ -88,3 +93,10 @@ Put this script below Materials and above Main. It must also be below
 SES - External Text v3.1.0 or higher. If you use MultiLang (must be v2.1.0 or
 higher), place this below that as well. Finally, if you add custom overrides,
 this script must be below all scripts that contain overriden methods.
+
+Uninstallation
+-----------------------------------------------------------------------------
+This only applies to you if you have savegames made while using this script
+that you would like to preserve. Set the Uninstall constant in
+SES::ExternalText to true and play the game. Load and save every file that you
+would like to keep. You may now remove the script with no problems.

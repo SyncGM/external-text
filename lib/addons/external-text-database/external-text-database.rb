@@ -1,5 +1,5 @@
 #--
-# External Text: Database v1.0.1 by Enelvon
+# External Text: Database v1.1.0 by Enelvon
 # =============================================================================
 # 
 # Summary
@@ -12,18 +12,11 @@
 # Compatibility Information
 # -----------------------------------------------------------------------------
 # **Required Scripts:**
-# SES External Text v3.1.0 or higher
+# SES External Text v3.2.0 or higher
 # (Optional) SES External Text: MultiLang v2.1.0 or higher
 # 
 # **Known Incompatibilities:**
 # None.
-#
-# Warning
-# -----------------------------------------------------------------------------
-# v1.0.0 does not yet include support for mid-game changes to text that it
-# overrides. If you intend to change text mid-game, you will need to leave out
-# those override keys from your text files. v1.1.0, whenever it is released,
-# should contain support for this.
 # 
 # Usage
 # -----------------------------------------------------------------------------
@@ -72,10 +65,22 @@
 # sprites and map battlebacks? Those are strings." The answer is "Absolutely!"
 # Just add :note, :character_name, :battleback_floor_name, or whatever to the
 # arrays, and you're golden. Have fun!
+#
+# Aliased Methods
+# -----------------------------------------------------------------------------
+# * `class Game_Actor`
+#     - `setup`
 # 
 # Overwritten Methods
 # -----------------------------------------------------------------------------
-# Anything you add, plus everything in RPG::System::Terms.
+# Anything you add, plus everything in RPG::System::Terms. Additionally:
+#
+# * `class Game_Actor`
+#     - `set_graphic`
+#
+# * `class Game_Interpreter`
+#     - `command_320`
+#     - `command_324`
 # 
 # License
 # -----------------------------------------------------------------------------
@@ -89,6 +94,13 @@
 # SES - External Text v3.1.0 or higher. If you use MultiLang (must be v2.1.0 or
 # higher), place this below that as well. Finally, if you add custom overrides,
 # this script must be below all scripts that contain overriden methods.
+#
+# Uninstallation
+# -----------------------------------------------------------------------------
+# This only applies to you if you have savegames made while using this script
+# that you would like to preserve. Set the Uninstall constant in
+# SES::ExternalText to true and play the game. Load and save every file that you
+# would like to keep. You may now remove the script with no problems.
 # 
 #++
 module SES
@@ -112,16 +124,21 @@ module SES
     
     }
     
+    # If you plan to uninstall this script and have savegames, set this to true,
+    # play the game, and save with each of the savegames. If you don't, they'll
+    # become unusable.
+    Uninstall = false
+    
   end
 end
 
 $imported ||= {}
-if !$imported["SES - External Text"] ||
-                                      $imported["SES - External Text"] < '3.1.0'
-  raise("You need SES - External Text v3.1.0 or higher to use SES - External" <<
-                                                               "Text Database.")
+if !$imported['SES - External Text'] ||
+                                      $imported['SES - External Text'] < '3.2.0'
+  raise('You need SES - External Text v3.2.0 or higher to use SES - External' <<
+                                                               'Text Database.')
 end
-$imported["SES - External Text Database"] = '1.0.1'
+$imported['SES - External Text Database'] = '1.1.0'
 
 # RPG::System::Terms
 # ============================================================================
@@ -132,6 +149,8 @@ class RPG::System::Terms
   #
   # @return [Array<String>] basic status vocabulary
   def basic
+    return @cached_basic if @cached_basic
+    @cached_basic =
     [SES::ExternalText.get_text('System_Level ') || @basic[0],
      SES::ExternalText.get_text('System_Level_short') || @basic[1],
      SES::ExternalText.get_text('System_HP') || @basic[2],
@@ -146,6 +165,8 @@ class RPG::System::Terms
   #
   # @return [Array<String>] parameter vocabulary
   def params
+    return @cached_params if @cached_params
+    @cached_params =
     [SES::ExternalText.get_text('System_MHP') || @params[0],
      SES::ExternalText.get_text('System_MMP') || @params[1],
      SES::ExternalText.get_text('System_ATK') || @params[2],
@@ -160,6 +181,8 @@ class RPG::System::Terms
   #
   # @return [Array<String>] equipment type vocabulary
   def etypes
+    return @cached_etypes if @cached_etypes
+    @cached_etypes =
     [SES::ExternalText.get_text('System_etype_0') || @etypes[0],
      SES::ExternalText.get_text('System_etype_1') || @etypes[1],
      SES::ExternalText.get_text('System_etype_2') || @etypes[2],
@@ -171,6 +194,8 @@ class RPG::System::Terms
   #
   # @return [Array<String>] system command vocabulary
   def commands
+    return @cached_commands if @cached_commands
+    @cached_commands =
     [SES::ExternalText.get_text('System_Fight') || @commands[0],
      SES::ExternalText.get_text('System_Escape') || @commands[1],
      SES::ExternalText.get_text('System_Attack') || @commands[2],
@@ -194,6 +219,86 @@ class RPG::System::Terms
      SES::ExternalText.get_text('System_Shut_Down') || @commands[20],
      SES::ExternalText.get_text('System_Go_to_Title') || @commands[21],
      SES::ExternalText.get_text('System_Cancel') || @commands[22]]
+  end
+end
+
+# Vocab
+# =============================================================================
+# Module containing basic game vocabulary.
+module Vocab
+  
+  # Convert all Vocab String constants to TextWrappers.
+  self.constants.each do |c|
+    if self.const_get(c).is_a?(String)
+      self.const_set(c, SES::ExternalText::TextWrapper.new(c, self))
+    end
+  end
+end
+
+# Game_Actor
+# =============================================================================
+# Base class for actors in the game.
+class Game_Actor < Game_Battler
+  
+  # Alias for setup.
+  alias_method :en_et_ga_s, :setup
+  
+  # Sets up the actor.
+  #
+  # @param actor_id [Integer] the actor's Database ID
+  # @return [void]
+  def setup(actor_id)
+    en_et_ga_s(actor_id)
+    modify_strings
+  end
+  
+  # Changes the actor's set String variables to or from TextWrappers.
+  #
+  # @return [void]
+  def modify_strings
+    [:name, :nickname, :character_name, :face_name].each do |s|
+      cs = instance_variable_get("@#{s}")
+      if SES::ExternalText::Uninstall && cs.is_a?(SES::ExternalText::TextWrapper)
+        instance_variable_set("@#{s}", cs.to_s)
+      else
+        wrapper = SES::ExternalText::TextWrapper.new(s, self.actor)
+        instance_variable_set("@#{s}", wrapper)
+      end
+    end
+  end
+  
+  # Changes the actor's face and map graphics.
+  #
+  # @param character_name [String] the name of the actor's character set
+  # @param character_index [Integer] the index of the actor's character sprite
+  # @param face_name [String] the name of the actor's faceset
+  # @param face_index [Integer] the index of the actor's portrait
+  # @return [void]
+  def set_graphic(character_name, character_index, face_name, face_index)
+    $game_system.override_text("Actor_#{@id}_character_name", character_name)
+    @character_index = character_index
+    $game_system.override_text("Actor_#{@id}_face_name", face_name)
+    @face_index = face_index
+  end
+end
+
+# Game_Interpreter
+# =============================================================================
+# Executes event commands.
+class Game_Interpreter
+  
+  # Changes the name of a given actor.
+  #
+  # @return [void]
+  def command_320
+    $game_system.override_text("Actor_#{@params[0]}_name", @params[1])
+  end
+  
+  # Changes the nickname of a given actor.
+  #
+  # @return [void]
+  def command_324
+    $game_system.override_text("Actor_#{@params[0]}_nickname", @params[1])
   end
 end
 
@@ -221,7 +326,7 @@ SES::ExternalText::Override.each_pair do |k,v|
     klass.send(:alias_method, :"en_etd_#{method}", method) rescue nil
     klass.send(:define_method, method) do
       en_generated_text_key = ''
-      if instance_variable_get("@id")
+      if instance_variable_get(:@id)
         en_generated_text_key = "#{klass_name}_#{@id}_#{method}"
       else
         en_generated_text_key = "#{klass_name}_#{method}"

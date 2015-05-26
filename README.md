@@ -1,4 +1,4 @@
-External Text v3.1.0 by Enelvon
+External Text v3.2.0 by Enelvon
 =============================================================================
 
 Summary
@@ -136,46 +136,46 @@ Script Calls
 -----------------------------------------------------------------------------
 To display text, place this in an event's script command:
 
-   `text(!Key!)`
+  `text(!Key!)`
 
-   `!Key!` should be replaced with a string corresponding to the key of the
-       text that you want to display. As an example, if I had a text key
-       called Intro, I would use this to call it:
+  `!Key!` should be replaced with a string corresponding to the key of the
+   text that you want to display. As an example, if I had a text key called
+   Intro, I would use this to call it:
 
-       `text("Intro")`
+  `text('Intro')`
 
 You can also display multiple sections of text at once with this:
 
-   `block_text(!Key!)`
+  `block_text(!Key!)`
 
-   `!Key!` should be replaced with either a Regular Expression or a string.
-       If you use a regular expression, it will display the text for all
-       keys that match it. If you use a string, it will display the text
-       for all keys that include it. This is simply a faster way to display
-       scenes. As an example, let's say we have a number of messages for
-       our introduction. Their keys are called Intro 1 through Intro 12.
-       Instead of 12 calls of `text("Intro ")`, we could use one of these:
+  `!Key!` should be replaced with either a Regular Expression or a string.
+   If you use a regular expression, it will display the text for all
+   keys that match it. If you use a string, it will display the text
+   for all keys that include it. This is simply a faster way to display
+   scenes. As an example, let's say we have a number of messages for
+   our introduction. Their keys are called Intro 1 through Intro 12.
+   Instead of 12 calls of `text("Intro ")`, we could use one of these:
 
-       `block_text(/^Intro \d+/)`
+  `block_text(/^Intro \d+/)`
 
-       `block_text("Intro")`
+  `block_text("Intro")`
 
-       The first one is better, of course, but both work. The problem with
-       the second comes in if we have another key that's similar - let's
-       say Ralph's Introduction. It would be called too, because it contains
-       Intro. It would not be called with the first one.
+  The first one is better, of course, but both work. The problem with
+   the second comes in if we have another key that's similar - let's
+   say Ralph's Introduction. It would be called too, because it contains
+   Intro. It would not be called with the first one.
 
 v3.0 has added two optional parameters to `block_text`. It can now be called
 like this:
 
-   `block_text(!Key!, !Start!, !End!)`
+  `block_text(!Key!, !Start!, !End!)`
 
-   `!Key!` is the same as it would be for the original `block_text`.
-   `!Start!` is an integer referencing the starting point for text iteration:
-       rather than display every piece of text whose key matches the given
-       `!Key!`, it will start at the nth occurence of `!Key!`.
-   `!End!` is an integer referencing the end point for text iteration. Only
-       text up to the nth occurence will be displayed.
+ `!Key!` is the same as it would be for the original `block_text`.
+ `!Start!` is an integer referencing the starting point for text iteration:
+  rather than display every piece of text whose key matches the given
+  `!Key!`, it will start at the nth occurence of `!Key!`.
+ `!End!` is an integer referencing the end point for text iteration. Only
+  text up to the nth occurence will be displayed.
 
 v3.0 also adds the `block_text_us` method. It takes the same parameters as
 `block_text`, but does not sort the keys before iterating.
@@ -183,29 +183,61 @@ v3.0 also adds the `block_text_us` method. It takes the same parameters as
 As of v1.7, there are two get_text calls. One can be used only in an event,
 and is used like this:
 
-   `get_text(!Key!)`
+  `get_text(!Key!)`
 
 I would recommend you use this with variable assignment, as it has no real
 use otherwise. !Key! is obviously the key of the text you want to use. You
 can also use a form of this command in your own scripts, by calling this:
 
-   `SES::ExternalText.get_text(key)`
+  `SES::ExternalText.get_text(key)`
 
 As of v2.0, you can now use External Text in conjunction with the Scrolling
 Text feature by using this call:
 
-   `scrolling_text(!Key!, !Speed!, !NoFast!)`
+  `scrolling_text(!Key!, !Speed!, !NoFast!)`
 
 `!Key!` is obviously the key for the text. `!Speed!` is how quickly you want
 it to move - 2 is the default. !NoFast! is whether or not the player should be
 blocked from hold the action key to increase the scroll speed - false allows
 them to do so, true prevents it. The default is false.
 
+As of v3.2, you may override any key with the contents of another on a
+file-by-file basis. To provide an override, use this script call:
+
+  `$game_system.add_override(!Key1!, !Key2!)`
+
+  `!Key1!` is the key that you want to override.
+  `!Key2!` is the key that contains the value that `!Key1!` should now
+   reference.
+
+As an example, let's say I'm doing an alignment system for an NPC. If I want
+to change an NPC's default dialogue (let's say it's named NeutralDialogue) to
+the evil dialogue, I might use this:
+
+  `$game_system.add_override('NeutralDialogue', 'EvilDialogue')
+
+You can also remove overrides with this:
+
+  `$game_system.delete_override(!Key!)`
+
+  `!Key!` is the key whose override you want to delete.
+
+Using the above example, I might use this to reset NeutralDialogue:
+
+  `$game_system.delete_override('NeutralDialogue')
+
+You do not need to delete an override before replacing it. If you call
+add_override for a key that already has an override, the override will be
+replaced. Overrides are fully compatible with both MultiLang and Database.
+
 Aliased Methods
 -----------------------------------------------------------------------------
 * `module DataManager`
     - `self.load_battle_test_database`
     - `self.load_normal_database`
+
+* `class Game_System`
+    - `initialize`
 
 * `class Window_Base`
     - `convert_escape_characters`
@@ -223,6 +255,11 @@ New Methods
 -----------------------------------------------------------------------------
 * `module DataManager`
     - `self.create_text`
+
+* `class Game_System`
+    - `add_override`
+    - `delete_override`
+    - `get_override`
 
 * `class Game_Message`
     - `add_line`
