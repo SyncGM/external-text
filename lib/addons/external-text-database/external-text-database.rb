@@ -81,6 +81,9 @@
 # * `class Game_Interpreter`
 #     - `command_320`
 #     - `command_324`
+#
+# * `class Scene_Name`
+#     - `on_input_ok`
 # 
 # License
 # -----------------------------------------------------------------------------
@@ -299,6 +302,22 @@ class Game_Interpreter
   # @return [void]
   def command_324
     $game_system.override_text("Actor_#{@params[0]}_nickname", @params[1])
+  end
+end
+
+
+# Scene_Name
+# =============================================================================
+# Allows actors to be renamed.
+class Scene_Name < Scene_MenuBase
+  
+  # Method called when OK is selected. Provides an override for the actor's
+  # name.
+  #
+  # @return [void]
+  def on_input_ok
+    $game_system.add_override("Actor_#{@actor.id}_name", @edit_window.name)
+    return_scene
   end
 end
 

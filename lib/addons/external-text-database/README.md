@@ -81,6 +81,9 @@ Anything you add, plus everything in RPG::System::Terms. Additionally:
     - `command_320`
     - `command_324`
 
+* `class Scene_Name`
+    - `on_input_ok`
+
 License
 -----------------------------------------------------------------------------
 This script is made available under the terms of the MIT Expat license.
