@@ -215,7 +215,7 @@
 # to change an NPC's default dialogue (let's say it's named NeutralDialogue) to
 # the evil dialogue, I might use this:
 #
-#   `$game_system.add_override('NeutralDialogue', 'EvilDialogue')
+#   `$game_system.add_override('NeutralDialogue', 'EvilDialogue')`
 #
 # You can also remove overrides with this:
 #
@@ -225,7 +225,7 @@
 #
 # Using the above example, I might use this to reset NeutralDialogue:
 #
-#   `$game_system.delete_override('NeutralDialogue')
+#   `$game_system.delete_override('NeutralDialogue')`
 #
 # You do not need to delete an override before replacing it. If you call
 # add_override for a key that already has an override, the override will be
