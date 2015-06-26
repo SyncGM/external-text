@@ -154,7 +154,7 @@ class RPG::System::Terms
   def basic
     return @cached_basic if @cached_basic
     @cached_basic =
-    [SES::ExternalText.get_text('System_Level ') || @basic[0],
+    [SES::ExternalText.get_text('System_Level') || @basic[0],
      SES::ExternalText.get_text('System_Level_short') || @basic[1],
      SES::ExternalText.get_text('System_HP') || @basic[2],
      SES::ExternalText.get_text('System_HP_short') || @basic[3],
