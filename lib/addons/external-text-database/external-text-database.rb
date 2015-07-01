@@ -1,5 +1,5 @@
 #--
-# External Text: Database v1.1.0 by Enelvon
+# External Text: Database v1.1.1 by Enelvon
 # =============================================================================
 # 
 # Summary
@@ -141,7 +141,7 @@ if !$imported['SES - External Text'] ||
   raise('You need SES - External Text v3.2.0 or higher to use SES - External' <<
                                                                'Text Database.')
 end
-$imported['SES - External Text Database'] = '1.1.0'
+$imported['SES - External Text Database'] = '1.1.1'
 
 # RPG::System::Terms
 # ============================================================================
@@ -278,9 +278,9 @@ class Game_Actor < Game_Battler
   # @param face_index [Integer] the index of the actor's portrait
   # @return [void]
   def set_graphic(character_name, character_index, face_name, face_index)
-    $game_system.override_text("Actor_#{@id}_character_name", character_name)
+    $game_system.add_override("Actor_#{@id}_character_name", character_name)
     @character_index = character_index
-    $game_system.override_text("Actor_#{@id}_face_name", face_name)
+    $game_system.add_override("Actor_#{@id}_face_name", face_name)
     @face_index = face_index
   end
 end
@@ -294,14 +294,14 @@ class Game_Interpreter
   #
   # @return [void]
   def command_320
-    $game_system.override_text("Actor_#{@params[0]}_name", @params[1])
+    $game_system.add_override("Actor_#{@params[0]}_name", @params[1])
   end
   
   # Changes the nickname of a given actor.
   #
   # @return [void]
   def command_324
-    $game_system.override_text("Actor_#{@params[0]}_nickname", @params[1])
+    $game_system.add_override("Actor_#{@params[0]}_nickname", @params[1])
   end
 end
 
