@@ -1,4 +1,4 @@
-External Text v3.2.0 by Enelvon
+External Text v3.3.0 by Enelvon
 =============================================================================
 
 Summary
@@ -132,6 +132,26 @@ in the names/descriptions of Database objects. You use it like this:
 
 `!Key!` is, of course, the key of the text you're referencing.
 
+v3.3 has added the ability to manage choices with External Text. To set up
+choices, create a key like you would for normal text. Give it a default option
+with this tag:
+
+   `[Default Choice] !Choice!`
+
+Set `!Choice!` to 0 to disable canceling, to a number from 1 through
+the number of choices that will be provided to have that option serve as the
+default, or to the number of choices + 1 (e.g. 5 if there are 4 choices) to
+give cancel its own branch.
+
+Next, we'll add our choices. Just type them! Each new line of text will act as
+a new choice. These *will* get wrapped in the choice box, so feel free to make
+them long! If you want to add manual line breaks in a choice, use the [line]
+tag. You can have as many choices as you want -- you're not limited to four,
+like in default Ace.
+
+You're done! Go to the Script Calls section to learn how to use your new
+choices.
+
 Script Calls
 -----------------------------------------------------------------------------
 To display text, place this in an event's script command:
@@ -171,11 +191,9 @@ like this:
   `block_text(!Key!, !Start!, !End!)`
 
  `!Key!` is the same as it would be for the original `block_text`.
- 
  `!Start!` is an integer referencing the starting point for text iteration:
   rather than display every piece of text whose key matches the given
   `!Key!`, it will start at the nth occurence of `!Key!`.
-  
  `!End!` is an integer referencing the end point for text iteration. Only
   text up to the nth occurence will be displayed.
 
@@ -198,13 +216,10 @@ Text feature by using this call:
 
   `scrolling_text(!Key!, !Speed!, !NoFast!)`
 
-  `!Key!` is obviously the key for the text.
-  
-  `!Speed!` is how quickly you want it to move - 2 is the default.
-  
-  `!NoFast!` is whether or not the player should be
-   blocked from hold the action key to increase the scroll speed - false allows
-   them to do so, true prevents it. The default is false.
+`!Key!` is obviously the key for the text. `!Speed!` is how quickly you want
+it to move - 2 is the default. !NoFast! is whether or not the player should be
+blocked from hold the action key to increase the scroll speed - false allows
+them to do so, true prevents it. The default is false.
 
 As of v3.2, you may override any key with the contents of another on a
 file-by-file basis. To provide an override, use this script call:
@@ -212,7 +227,6 @@ file-by-file basis. To provide an override, use this script call:
   `$game_system.add_override(!Key1!, !Key2!)`
 
   `!Key1!` is the key that you want to override.
-  
   `!Key2!` is the key that contains the value that `!Key1!` should now
    reference.
 
@@ -235,6 +249,21 @@ Using the above example, I might use this to reset NeutralDialogue:
 You do not need to delete an override before replacing it. If you call
 add_override for a key that already has an override, the override will be
 replaced. Overrides are fully compatible with both MultiLang and Database.
+
+v3.3 has added the `show_choices` method. Use it in a script call with this
+format:
+
+  `show_choices(!Key!)`
+
+`!Key!` should be an External Text key that you've formatted for choices as
+described in the previous section. This call will display the choices -- but
+how do you branch for them? With conditional branches! Just set up branches
+that will check the value of the designated ChoiceVariable (found in the
+SES::ExternalText module). If the player chooses the first choice, the result
+will be 1, the second choice will be 2, and so on. If you set it up to use a
+branch for cancel, the variable will be equal to the number you gave for said
+branch. Easy, right? Just put all of your processing in those conditional
+branches. You're done!
 
 Aliased Methods
 -----------------------------------------------------------------------------

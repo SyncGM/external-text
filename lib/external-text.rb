@@ -1,5 +1,5 @@
 #--
-# External Text v3.2.0 by Enelvon
+# External Text v3.3.0 by Enelvon
 # =============================================================================
 # 
 # Summary
@@ -132,6 +132,26 @@
 #    `\t[!Key!]`
 # 
 # `!Key!` is, of course, the key of the text you're referencing.
+#
+# v3.3 has added the ability to manage choices with External Text. To set up
+# choices, create a key like you would for normal text. Give it a default option
+# with this tag:
+#
+#    `[Default Choice] !Choice!`
+#
+# Set `!Choice!` to 0 to disable canceling, to a number from 1 through
+# the number of choices that will be provided to have that option serve as the
+# default, or to the number of choices + 1 (e.g. 5 if there are 4 choices) to
+# give cancel its own branch.
+#
+# Next, we'll add our choices. Just type them! Each new line of text will act as
+# a new choice. These *will* get wrapped in the choice box, so feel free to make
+# them long! If you want to add manual line breaks in a choice, use the [line]
+# tag. You can have as many choices as you want -- you're not limited to four,
+# like in default Ace.
+#
+# You're done! Go to the Script Calls section to learn how to use your new
+# choices.
 # 
 # Script Calls
 # -----------------------------------------------------------------------------
@@ -230,6 +250,21 @@
 # You do not need to delete an override before replacing it. If you call
 # add_override for a key that already has an override, the override will be
 # replaced. Overrides are fully compatible with both MultiLang and Database.
+#
+# v3.3 has added the `show_choices` method. Use it in a script call with this
+# format:
+#
+#   `show_choices(!Key!)`
+#
+# `!Key!` should be an External Text key that you've formatted for choices as
+# described in the previous section. This call will display the choices -- but
+# how do you branch for them? With conditional branches! Just set up branches
+# that will check the value of the designated ChoiceVariable (found in the
+# SES::ExternalText module). If the player chooses the first choice, the result
+# will be 1, the second choice will be 2, and so on. If you set it up to use a
+# branch for cancel, the variable will be equal to the number you gave for said
+# branch. Easy, right? Just put all of your processing in those conditional
+# branches. You're done!
 # 
 # Aliased Methods
 # -----------------------------------------------------------------------------
@@ -305,13 +340,6 @@ module SES
   # Module containing configuration information for the External Text script.
   module ExternalText
     
-    # Enable this if you're not using a choice script like Raizen's and want to
-    # use text codes in choices. It will force the choice window to evaluate
-    # escape characters before displaying, causing it to size properly. In
-    # general, it won't hurt to leave this on as long as this script is above
-    # any other scripts that affect the choice window.
-    ChoiceFix = true
-    
     # Add faces here. The format is "Name" => ["Faceset", Index],
     Faces = {
       
@@ -322,6 +350,36 @@ module SES
     # Set this to either :box or :text. :box uses the name box, :text will
     # include the name at the top of each page.
     NameStyle = :box
+    
+    # The ID of the variable that will receive the selected index from a call to
+    # show_choices. This may be used in conditional branches to determine what
+    # commands to execute.
+    ChoiceVariable = 1
+    
+    # The maximum number of lines to display at a time in the choice window. Any
+    # lines beyond this number will cause the window to become scrollable.
+    NumChoiceLines = 4
+    
+    # Whether or not to reduce the height of the choice window when the number
+    # of lines that it contains is less than NumChoiceLines.
+    ChoiceShrinkHeight = true
+    
+    # Whether or not the choice window should always be as wide as the game
+    # window.
+    ChoiceFillWidth = true
+    
+    # Whether or not the choice selection window should replace the message
+    # window in certain situations. There are three options:
+    #
+    # :hidden causes the choice selection window to appear in the message
+    #   window's space if the message window is hidden.
+    #
+    # :always causes the choice selection window to always appear in the message
+    #   window's space.
+    #
+    # :never prevents the choice selection window from ever appearing in the
+    #   message window's space.
+    ChoiceReplaceMessageBox = :hidden
     
     # This is a hash of tags that will be searched for in the Text.txt file. You
     # can customize this to add new tags. Scripters can add new tags in their
@@ -341,8 +399,8 @@ module SES
               '',
             
             # Options
-            # Position, Background
-            [ 2,        0          ]
+            # Position, Background, Choice
+            [ 2,        0,          0      ]
           ]
         end,
                                          
@@ -393,7 +451,16 @@ module SES
                                    elsif bg.downcase == 'dim' then 1
                                    else 2 end
         end,
+      
+      /^\[Default Choice\]\s*(\-?\d+)/i =>
+        proc do |choice|
+          $game_text[key][2][2] = choice.to_i
+        end,
     }
+    
+    # The proc (lambda, in this case) called by Game_Message when the
+    # show_choices method is used to display choices from External Text.
+    ChoiceProc = lambda { |n| puts n; $game_variables[ChoiceVariable] = n + 1 }
     
     # Iterates through all files in a chain of directories.
     #
@@ -556,6 +623,9 @@ end
 class Game_System
   
   alias_method :en_et_gs_i, :initialize
+  # Creates a new instance of Game_System.
+  #
+  # @return [Game_System] a new instance of Game_System
   def initialize
     en_et_gs_i
     @text_overrides = {}
@@ -657,6 +727,22 @@ class Game_Message
     return cc
   end
   
+  # Sets up choices from an External Text key.
+  #
+  # @param data [Array<Array<String,Integer,NilClass>,String>] the called text
+  #   data
+  # @return [void]
+  def load_choices(data)
+    @face_name = ''
+    @face_index = 0
+    @choices.clear
+    data[1].split(/[\r\n]+/).each do |c|
+      @choices << wrap_text(c, :choices).join("\n")
+    end
+    @choice_cancel_type = data[2][2]
+    @choice_proc = SES::ExternalText::ChoiceProc
+  end
+  
   # Sets up the called text, as well as any face and name data it contains.
   #
   # @param data [Array<Array<String,Integer,NilClass>,String>] the called text
@@ -680,34 +766,7 @@ class Game_Message
     @background = data[2][1]
     text = data[1]
     new_page
-    lines = ['']
-    i = 0
-    cc = ''
-    if name
-      @name = data[0][4].empty? ? nil : "#{data[0][4]}"
-      if SES::ExternalText::NameStyle == :text
-        @name << '\c[0]'
-        lines[0] = @name
-        i += 1
-        lines[i] = ''
-      end
-    end
-    text.gsub!(/[\r\n]+/) { '[line]' }
-    text.split(/\s+/).each do |w|
-      cc = get_color(w) || cc
-      if w[/\[line\]/i]
-        w.split(/\[line\]/i).each_with_index do |v,l|
-          i = add_line(lines, i, cc, name) if l > 0 || too_wide?(lines[i] + v)
-          lines[i] << "#{v} "
-        end
-      elsif too_wide?(lines[i] + w)
-        i = add_line(lines, i, cc, name)
-        lines[i] << "#{w} "
-      else
-        lines[i] << "#{w} "
-      end
-    end
-    return lines
+    return wrap_text(text, data, name)
   end
   
   # Sets the current message window text.
@@ -729,8 +788,9 @@ class Game_Message
   # Checks if given text is too wide for the message window.
   #
   # @param text [String] the text to check
+  # @param type [Symbol] determines miscellaneous adjustments
   # @return [Boolean] whether or not the text is too wide to fit
-  def too_wide?(text)
+  def too_wide?(text, type)
     unless @message_width
       win = Window_Message.new
       @message_width = win.contents_width
@@ -738,8 +798,48 @@ class Game_Message
     end
     @dummy_bitmap ||= Bitmap.new(1,1)
     width = @message_width
+    width -= 8 if type == :choices
     width -= 112 unless @face_name.empty?
     @dummy_bitmap.text_size(slice_escape_characters(text)).width > width
+  end
+  
+  # Wraps the given text to fit in the message window.
+  #
+  # @param text [String] the text to wrap
+  # @param data [Array,Symbol] data related to the text
+  # @param name [Boolean] whether or not to display a name
+  # @return [Array<String>] the wrapped text
+  def wrap_text(text, data = nil, name = false)
+    lines = ['']
+    cc = ''
+    i = 0
+    if name
+      @name = data[0][4].empty? ? nil : "#{data[0][4]}"
+      if SES::ExternalText::NameStyle == :text
+        @name << '\c[0]'
+        lines[0] = @name
+        i += 1
+        lines[i] = ''
+      end
+    end
+    text.gsub!(/[\r\n]+/) { '[line]' }
+    text.split(/\s+/).each do |w|
+      cc = get_color(w) || cc
+      if w[/\[line\]/i]
+        w.split(/\[line\]/i).each_with_index do |v,l|
+          if l > 0 || too_wide?(lines[i] + v, data)
+            i = add_line(lines, i, cc, name)
+          end
+          lines[i] << "#{v} "
+        end
+      elsif too_wide?(lines[i] + w, data)
+        i = add_line(lines, i, cc, name)
+        lines[i] << "#{w} "
+      else
+        lines[i] << "#{w} "
+      end
+    end
+    return lines
   end
 end
 
@@ -827,6 +927,15 @@ class Game_Interpreter
     wait_for_message
   end
   
+  # Sets up choices based on the given key.
+  #
+  # @param key [String] the key from which the choices will be drawn
+  # @return [void]
+  def show_choices(key)
+    $game_message.load_choices($game_text[key])
+    wait_for_message
+  end
+  
   # Displays the given key's text in the message window.
   #
   # @param key [String] the key whose text you wish to display
@@ -836,6 +945,7 @@ class Game_Interpreter
                                         "There is no text for the key #{key}.")
     case next_event_code
     when 102
+      wait_for_message if SES::ExternalText::ChoiceReplaceMessageBox == :always
       @index += 1
       setup_choices(@list[@index].parameters)
     when 103
@@ -844,6 +954,12 @@ class Game_Interpreter
     when 104
       @index += 1
       setup_item_choice(@list[@index].parameters)
+    when 355
+      if @list[@index + 1].parameters[0][/show_choices\((['"])(.+)\1\)/]
+        wait_for_message if SES::ExternalText::ChoiceReplaceMessageBox == :always
+        @index += 1
+        show_choices($2)
+      end
     end
     wait_for_message
   end
@@ -878,16 +994,208 @@ class Window_Base
   end
 end
 
-if SES::ExternalText::ChoiceFix
-  # Window_ChoiceList
-  # ===========================================================================
-  # Displays choices for the player to select.
-  class Window_ChoiceList < Window_Command
-    alias_method :en_et_wcl_mcw, :max_choice_width
-    def max_choice_width
-      $game_message.choices.collect do |s| 
-        text_size(slice_escape_characters(s)).width
-      end.max
+# Window_ChoiceList
+# ===========================================================================
+# Displays choices for the player to select.
+class Window_ChoiceList < Window_Command
+  
+  alias_method :en_et_wcl_i, :initialize
+  # Creates a new instance of Window_ChoiceList.
+  #
+  # @param message_window [Window_Message] the message window that the window
+  #   will be tied to
+  # @return [Window_ChoiceList] a new instance of Window_ChoiceList
+  def initialize(message_window)
+    @choice_rects = []
+    @contents_height = 0
+    en_et_wcl_i(message_window)
+  end
+  
+  # Returns the height of the window's contents.
+  #
+  # @return [Integer] the height of the window's contents
+  def contents_height
+    @contents_height
+  end
+  
+  # Returns a Rect representing the area occupied by the choice at the given
+  # index.
+  #
+  # @param index [Integer] the index of the choice
+  # @return [Rect] the area occupied by the choice at the given index
+  def item_rect(index)
+    unless @choice_rects[index]
+      rect = Rect.new
+      rect.width = item_width
+      rect.height = item_height 
+      if $game_message.choices[index]
+        rect.height *= $game_message.choices[index].split(/[\r\n]+/).size
+      end
+      rect.x = index % col_max * (item_width + spacing)
+      if index > 0
+        last_rect = item_rect(index - 1)
+        rect.y = last_rect.y + last_rect.height
+      else
+        rect.y = index / col_max * item_height
+      end
+      @choice_rects[index] = rect
+    end
+    @choice_rects[index]
+  end
+  
+  alias_method :en_et_wcl_mcw, :max_choice_width
+  # Returns the width of the widest choice.
+  #
+  # @return [Integer] the width of the widest choice
+  def max_choice_width
+    $game_message.choices.collect do |s| 
+      text_size(slice_escape_characters(s)).width
+    end.max
+  end
+  
+  # Returns the maximum number of items visible at a given time.
+  #
+  # @return [Integer] the maximum number of items visible at a given time
+  def page_row_max
+    max = 0
+    i = top_row
+    size = (height - padding - padding_bottom)
+    while (size -= item_rect(i).height) > 0
+      max += 1
+    end
+    max
+  end
+  
+  # Returns the height of the window without its padding.
+  #
+  # @return [Integer] the height of the window without its padding
+  def real_height
+    self.height - standard_padding * 2
+  end
+  
+  # Refreshes the window's contents.
+  #
+  # @return [void]
+  def refresh
+    @choice_rects.clear
+    @contents_height = 0
+    @top_row = 0
+    $game_message.choices.each do |c|
+      next unless c
+      @contents_height += (item_height * c.split(/[\r\n]+/).size)
+    end
+    super
+  end
+  
+  # Returns the index of the top row.
+  #
+  # @return [Integer] the index of the top row
+  def top_row
+    @top_row
+  end
+  
+  # Sets the top row, adjusting the display y of the window's contents to ensure
+  # that it is visible.
+  #
+  # @param row [Integer] the new top row
+  # @return [void]
+  def top_row=(row)
+    r = item_rect(row)
+    if r.y <= oy
+      super(row)
+      @top_row = row
+      self.oy = r.y
+    elsif @contents_height - oy - real_height > 0
+      i = top_row
+      h = (i..@index).inject(0) { |h,n| h += item_rect(n).height }
+      while h > real_height
+        i += 1
+        h = (i..@index).inject(0) { |h,n| h += item_rect(n).height }
+      end
+      super(i)
+      @top_row = i
+      self.oy = item_rect(i).y
+    end
+  end
+  
+  if SES::ExternalText::ChoiceReplaceMessageBox == :hidden
+    # Updates the size and position of the choice window.
+    #
+    # @return [void]
+    def update_placement
+      self.oy = 0
+      h = SES::ExternalText::NumChoiceLines
+      if SES::ExternalText::ChoiceShrinkHeight
+        @choice_rects.clear
+        ch = 0
+        i = item_rect($game_message.choices.size - 1)
+        ch = (i.y + i.height) / line_height
+        h = ch if h > ch
+      end
+      self.height = fitting_height(h)
+      if SES::ExternalText::ChoiceFillWidth
+        self.width = Graphics.width
+      else
+        self.width = [max_choice_width + 12, 96].max + padding * 2
+        self.width = [width, Graphics.width].min
+      end
+      self.x = Graphics.width - width
+      if @message_window.open?
+        if @message_window.y >= Graphics.height / 2
+          self.y = @message_window.y - height
+        else
+          self.y = @message_window.y + @message_window.height
+        end
+      else
+        self.y = Graphics.height - self.height
+      end
+    end
+  elsif SES::ExternalText::ChoiceReplaceMessageBox == :always
+    # Updates the size and position of the choice window.
+    #
+    # @return [void]
+    def update_placement
+      self.oy = 0
+      if SES::ExternalText::ChoiceShrinkHeight && h > ch
+        @choice_rects.clear
+        ch = 0
+        i = item_rect($game_message.choices.size - 1)
+        ch = (i.y + i.height) / line_height
+        h = ch if h > ch
+      end
+      self.height = fitting_height(h)
+      self.width = Graphics.width
+      self.x = 0
+      self.y = Graphics.height - self.height
+      @message_window.close if @message_window.open?
+    end
+  else
+    # Updates the size and position of the choice window.
+    #
+    # @return [void]
+    def update_placement
+      self.oy = 0
+      h = SES::ExternalText::NumChoiceLines
+      if SES::ExternalText::ChoiceShrinkHeight && h > ch
+        @choice_rects.clear
+        ch = 0
+        i = item_rect($game_message.choices.size - 1)
+        ch = (i.y + i.height) / line_height
+        h = ch if h > ch
+      end
+      self.height = fitting_height(h)
+      if SES::ExternalText::ChoiceFillWidth
+        self.width = Graphics.width
+      else
+        self.width = [max_choice_width + 12, 96].max + padding * 2
+        self.width = [width, Graphics.width].min
+      end
+      self.x = Graphics.width - width
+      if @message_window.y >= Graphics.height / 2
+        self.y = @message_window.y - height
+      else
+        self.y = @message_window.y + @message_window.height
+      end
     end
   end
 end
