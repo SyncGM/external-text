@@ -561,7 +561,7 @@ module SES
   end
 end
 
-($imported ||= {})['SES - External Text'] = '3.2.0'
+($imported ||= {})['SES - External Text'] = '3.3.0'
 
 # DataManager
 # =============================================================================
