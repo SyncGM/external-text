@@ -970,13 +970,13 @@ class Window_Base
   #
   # @param text [String] the text to convert
   # @return [String] the text with escape characters converted
-  def convert_escape_characters(*args, &block)
+  def convert_escape_characters(text)
     result = text.gsub(/\eT\[(.+)\]/i) do
       if $game_text.keys.include?($1) then $game_text[$1][1]
       else "Invalid key [#{$1}]. No matching text exists."
       end
     end
-    result = en_et_wb_cec(*args, &block)
+    result = en_et_wb_cec(text)
   end
   
   # Removes all escape characters from the given text and returns it.
