@@ -702,7 +702,7 @@ class Game_Message
     if SceneManager.scene.respond_to?(:message_window)
       @window = SceneManager.scene.message_window
     else
-      if @window && @window.disposed?
+      if !@window || (@window && @window.disposed?)
         @window.dispose
         @window = Window_Message.new
       end
