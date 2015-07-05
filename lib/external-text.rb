@@ -1,5 +1,5 @@
 #--
-# External Text v3.3.0 by Enelvon
+# External Text v3.3.1 by Enelvon
 # =============================================================================
 # 
 # Summary
@@ -561,7 +561,7 @@ module SES
   end
 end
 
-($imported ||= {})['SES - External Text'] = '3.3.0'
+($imported ||= {})['SES - External Text'] = '3.3.1'
 
 # DataManager
 # =============================================================================
@@ -698,21 +698,15 @@ class Game_Message
   #
   # @param text [String] the text to convert
   # @return [String] the text with escape characters converted
+  alias_method :en_et_gm_cec, :convert_escape_characters
   def convert_escape_characters(text)
-    result = text.to_s.clone
-    result.gsub!(/\\/)            { "\e" }
-    result.gsub!(/\e\e/)          { "\\" }
-    result.gsub!(/\eV\[(\d+)\]/i) { $game_variables[$1.to_i] }
-    result.gsub!(/\eV\[(\d+)\]/i) { $game_variables[$1.to_i] }
-    result.gsub!(/\eN\[(\d+)\]/i) { actor_name($1.to_i) }
-    result.gsub!(/\eP\[(\d+)\]/i) { party_member_name($1.to_i) }
-    result.gsub!(/\eG/i)          { Vocab::currency_unit }
-    result.gsub!(/\eT\[(.+)\]/i) do
+    text = text.to_s.clone
+    text.gsub!(/\eT\[(.+)\]/i) do
       if $game_text.keys.include?($1) then $game_text[$1][1]
       else "Invalid key [#{$1}]. No matching text exists."
       end
     end
-    result
+    en_et_gm_cec(text)
   end
 
   
