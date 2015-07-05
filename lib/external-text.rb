@@ -1,5 +1,5 @@
 #--
-# External Text v3.3.1 by Enelvon
+# External Text v3.3.2 by Enelvon
 # =============================================================================
 # 
 # Summary
@@ -561,7 +561,7 @@ module SES
   end
 end
 
-($imported ||= {})['SES - External Text'] = '3.3.1'
+($imported ||= {})['SES - External Text'] = '3.3.2'
 
 # DataManager
 # =============================================================================
@@ -698,15 +698,16 @@ class Game_Message
   #
   # @param text [String] the text to convert
   # @return [String] the text with escape characters converted
-  alias_method :en_et_gm_cec, :convert_escape_characters
   def convert_escape_characters(text)
-    text = text.to_s.clone
-    text.gsub!(/\eT\[(.+)\]/i) do
-      if $game_text.keys.include?($1) then $game_text[$1][1]
-      else "Invalid key [#{$1}]. No matching text exists."
+    if SceneManager.scene.respond_to?(:message_window)
+      @window = SceneManager.scene.message_window
+    else
+      if @window && @window.disposed?
+        @window.dispose
+        @window = Window_Message.new
       end
     end
-    en_et_gm_cec(text)
+    @window.convert_escape_characters(text)
   end
 
   
@@ -970,13 +971,12 @@ class Window_Base
   # @param text [String] the text to convert
   # @return [String] the text with escape characters converted
   def convert_escape_characters(*args, &block)
-    result = en_et_wb_cec(*args, &block)
-    result.gsub!(/\eT\[(.+)\]/i) do
+    result = text.gsub(/\eT\[(.+)\]/i) do
       if $game_text.keys.include?($1) then $game_text[$1][1]
       else "Invalid key [#{$1}]. No matching text exists."
       end
     end
-    result
+    result = en_et_wb_cec(*args, &block)
   end
   
   # Removes all escape characters from the given text and returns it.

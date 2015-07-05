@@ -1,4 +1,4 @@
-External Text v3.3.1 by Enelvon
+External Text v3.3.2 by Enelvon
 =============================================================================
 
 Summary
