@@ -1,5 +1,5 @@
 #--
-# External Text v3.3.2 by Enelvon
+# External Text v3.3.3 by Enelvon
 # =============================================================================
 # 
 # Summary
@@ -561,7 +561,7 @@ module SES
   end
 end
 
-($imported ||= {})['SES - External Text'] = '3.3.2'
+($imported ||= {})['SES - External Text'] = '3.3.3'
 
 # DataManager
 # =============================================================================
@@ -971,12 +971,15 @@ class Window_Base
   # @param text [String] the text to convert
   # @return [String] the text with escape characters converted
   def convert_escape_characters(text)
-    result = text.gsub(/\eT\[(.+)\]/i) do
-      if $game_text.keys.include?($1) then $game_text[$1][1]
-      else "Invalid key [#{$1}]. No matching text exists."
+    result = en_et_wb_cec(text)
+    result.gsub!(/\eT\[(.+)\]/i) do
+      if $game_text.keys.include?($1)
+        convert_escape_characters($game_text[$1][1])
+      else
+        "Invalid key [#{$1}]. No matching text exists."
       end
     end
-    result = en_et_wb_cec(text)
+    result
   end
   
   # Removes all escape characters from the given text and returns it.
@@ -1294,3 +1297,4 @@ if SES::ExternalText::NameStyle == :box
     end
   end
 end
+
