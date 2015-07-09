@@ -1,0 +1,437 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII" />
+<title>
+  File: README
+  
+    &mdash; SES External Text Documentation
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!file.README.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'><h1>External Text v3.3.3 by Enelvon</h1>
+
+<h2>Summary</h2>
+
+<p>This script allows you to create text files and use their contents in the
+in-game message windows. It will automatically wrap text, allowing you to
+avoid worrying about whether or not your text will fit in the message window.
+It uses a simple tagging system to divide the files into messages and supply
+them with faces to be displayed (if desired).</p>
+
+<h2>Compatibility Information</h2>
+
+<p><strong>Required Scripts:</strong>
+None.</p>
+
+<p><strong>Known Incompatibilities:</strong>
+None specifically - though while ordinary text codes (\c, \n, etc) can be
+used, custom ones cannot if they are persistent (like \c is) - they will be
+reset whenever text wraps to a new page. \c is handled so that it will not
+be reset, and it is possible to add handlers for other persistent codes.</p>
+
+<h2>Usage</h2>
+
+<p>Create a directory named Text in the Data folder for your project. Inside of
+this directory, create a text file -- there, you&#39;ve done the hard part! You
+can add as many text files to the folder as you&#39;d like, and can even add
+subfolders for organization. The names don&#39;t matter, so do whatever works for
+you! To add text to the files, use this format:</p>
+
+<p><code>[Key] !Key!</code>
+   <code>[Face] !File!, !Index!</code>
+   <code>!Text!</code></p>
+
+<p>You may omit the <code>[Face]</code> line to have a message without a face, but the
+<code>[Key]</code> line and the text itself are necessary. The replacements you should
+use with the above format are:</p>
+
+<p><code>!Key!</code> with an identifier for the text. Each of these <em>must</em> be unique.
+   <code>!File!</code> with the name of the faceset you want to display, minus the
+      extension.
+   <code>!Index!</code> with the index of the face in the file, starting with 0.
+   <code>!Text!</code> with the message you want to display. Note that new lines within
+      a message have no effect other than adding a space.</p>
+
+<p>Note that you must playtest the game before creating an encrypted archive,
+or your changes in Text.txt will not be reflected in the game, as it reads
+data by creating a Text.rvdata2 file from Text.txt - something that it will
+be unable to do after encryption.</p>
+
+<p>There are three additional face tags, one of which will require you to
+modify the Faces hash in SES::ExternalText. I&#39;ll break them all down here:</p>
+
+<p><code>[AFace] !Index!</code></p>
+
+<p>This is pretty self-explanatory. Replace <code>!Index!</code> with the ID of the actor
+whose face you want to show.</p>
+
+<p><code>[PFace] !Index!</code></p>
+
+<p>Another easy one. Replace !Index! with an index that will correspond to the
+player&#39;s party at the time they receive the message. The first slot is 0,
+the second is 1, and so on.</p>
+
+<p><code>[DFace] !Key!</code></p>
+
+<p>This is the one that requires some modification. It&#39;s handy for recurring
+NPCs - you define a face in the Faces hash of SES::ExternalText and replace
+!Key! with the name you gave it in the hash. There is an example for Ralph
+already in the hash, as well as format instructions, so this should be easy
+for you to use as well.</p>
+
+<p>Another tag you can include is <code>[Name]</code>. It will display a namebox with the
+given name. Text codes will work with it.</p>
+
+<p><code>[Name] \c[15]\n[1]</code></p>
+
+<p>Would use the first actor&#39;s name in color 15.</p>
+
+<p><code>[Name] Ralph</code></p>
+
+<p>Would use &#39;Ralph&#39;, and so on. There are actually two styles for names: the
+namebox (which is the default) and in-text names, which are displayed at the
+top of each message page. You can toggle it with the NameStyle constant in
+SES::ExternalText. Set it to :box to use the namebox or :text to use in-text
+names.</p>
+
+<p>As of v1.5, there is also the <code>[FName]</code> tag, which works like the <code>[Name]</code> tag
+except it also sets the face to whatever is entered, like <code>[DFace]</code> would.
+This method of setting the name does not allow you to use text codes, unlike
+the normal one, unless you have set up the key in the Faces hash to include
+them.</p>
+
+<p>As of v3.0, the <code>[Line]</code> tag is deprecated (though still usable for backwards
+compatibility). Add a new line instead.</p>
+
+<p>You can comment out lines by beginning them with a or //. You can use this
+to divide your Text file into sections, to help with organization.</p>
+
+<p>v1.5 also alters how text tags are checked - they are now stored in a hash
+in the SES::ExternalText module, making it easy to add your own. The keys
+of the hash should be Regular Expressions, and the values should be strings
+for evaluation.</p>
+
+<p>New to v1.6 are the location and background tags. To alter the location of
+the message window, use this tag:</p>
+
+<p><code>[Position] !Pos!</code></p>
+
+<p><code>!Pos!</code> can be Top, Center, or Bottom. You will likely never need to use the
+Bottom tag, as the default position is Bottom. It is included for the sake
+of completeness.</p>
+
+<p>The background tag allows you to choose between Normal, Dim, and Transparent
+backgrounds, like you would for normal text. You use it like this:</p>
+
+<p><code>[Background] !Back!</code></p>
+
+<p>Replace <code>!Back!</code> with Normal, Dim, or Transparent. You will probably never use
+Normal, as it&#39;s the default. Much like Bottom for positions, it was included
+solely for the sake of completeness.</p>
+
+<p>v1.7 adds in a text code that can be used to call text. I would only bother
+using it if you have a global text codes script of some kind - this script
+does not provide such a function, and I do not intend to add one. Note that
+the text code <em>will not</em> auto-wrap text, so you will still have to test
+its length yourself. You can use this alongside a global text codes script
+to make translating your game into multiple languages easy - just use it
+in the names/descriptions of Database objects. You use it like this:</p>
+
+<p><code>\t[!Key!]</code></p>
+
+<p><code>!Key!</code> is, of course, the key of the text you&#39;re referencing.</p>
+
+<p>v3.3 has added the ability to manage choices with External Text. To set up
+choices, create a key like you would for normal text. Give it a default option
+with this tag:</p>
+
+<p><code>[Default Choice] !Choice!</code></p>
+
+<p>Set <code>!Choice!</code> to 0 to disable canceling, to a number from 1 through
+the number of choices that will be provided to have that option serve as the
+default, or to the number of choices + 1 (e.g. 5 if there are 4 choices) to
+give cancel its own branch.</p>
+
+<p>Next, we&#39;ll add our choices. Just type them! Each new line of text will act as
+a new choice. These <em>will</em> get wrapped in the choice box, so feel free to make
+them long! If you want to add manual line breaks in a choice, use the [line]
+tag. You can have as many choices as you want -- you&#39;re not limited to four,
+like in default Ace.</p>
+
+<p>You&#39;re done! Go to the Script Calls section to learn how to use your new
+choices.</p>
+
+<h2>Script Calls</h2>
+
+<p>To display text, place this in an event&#39;s script command:</p>
+
+<p><code>text(!Key!)</code></p>
+
+<p><code>!Key!</code> should be replaced with a string corresponding to the key of the
+   text that you want to display. As an example, if I had a text key called
+   Intro, I would use this to call it:</p>
+
+<p><code>text(&#39;Intro&#39;)</code></p>
+
+<p>You can also display multiple sections of text at once with this:</p>
+
+<p><code>block_text(!Key!)</code></p>
+
+<p><code>!Key!</code> should be replaced with either a Regular Expression or a string.
+   If you use a regular expression, it will display the text for all
+   keys that match it. If you use a string, it will display the text
+   for all keys that include it. This is simply a faster way to display
+   scenes. As an example, let&#39;s say we have a number of messages for
+   our introduction. Their keys are called Intro 1 through Intro 12.
+   Instead of 12 calls of <code>text(&quot;Intro &quot;)</code>, we could use one of these:</p>
+
+<p><code>block_text(/^Intro \d+/)</code></p>
+
+<p><code>block_text(&quot;Intro&quot;)</code></p>
+
+<p>The first one is better, of course, but both work. The problem with
+   the second comes in if we have another key that&#39;s similar - let&#39;s
+   say Ralph&#39;s Introduction. It would be called too, because it contains
+   Intro. It would not be called with the first one.</p>
+
+<p>v3.0 has added two optional parameters to <code>block_text</code>. It can now be called
+like this:</p>
+
+<p><code>block_text(!Key!, !Start!, !End!)</code></p>
+
+<p><code>!Key!</code> is the same as it would be for the original <code>block_text</code>.
+ <code>!Start!</code> is an integer referencing the starting point for text iteration:
+  rather than display every piece of text whose key matches the given
+  <code>!Key!</code>, it will start at the nth occurence of <code>!Key!</code>.
+ <code>!End!</code> is an integer referencing the end point for text iteration. Only
+  text up to the nth occurence will be displayed.</p>
+
+<p>v3.0 also adds the <code>block_text_us</code> method. It takes the same parameters as
+<code>block_text</code>, but does not sort the keys before iterating.</p>
+
+<p>As of v1.7, there are two get_text calls. One can be used only in an event,
+and is used like this:</p>
+
+<p><code>get_text(!Key!)</code></p>
+
+<p>I would recommend you use this with variable assignment, as it has no real
+use otherwise. !Key! is obviously the key of the text you want to use. You
+can also use a form of this command in your own scripts, by calling this:</p>
+
+<p><code>SES::ExternalText.get_text(key)</code></p>
+
+<p>As of v2.0, you can now use External Text in conjunction with the Scrolling
+Text feature by using this call:</p>
+
+<p><code>scrolling_text(!Key!, !Speed!, !NoFast!)</code></p>
+
+<p><code>!Key!</code> is obviously the key for the text. <code>!Speed!</code> is how quickly you want
+it to move - 2 is the default. !NoFast! is whether or not the player should be
+blocked from hold the action key to increase the scroll speed - false allows
+them to do so, true prevents it. The default is false.</p>
+
+<p>As of v3.2, you may override any key with the contents of another on a
+file-by-file basis. To provide an override, use this script call:</p>
+
+<p><code>$game_system.add_override(!Key1!, !Key2!)</code></p>
+
+<p><code>!Key1!</code> is the key that you want to override.
+  <code>!Key2!</code> is the key that contains the value that <code>!Key1!</code> should now
+   reference.</p>
+
+<p>As an example, let&#39;s say I&#39;m doing an alignment system for an NPC. If I want
+to change an NPC&#39;s default dialogue (let&#39;s say it&#39;s named NeutralDialogue) to
+the evil dialogue, I might use this:</p>
+
+<p><code>$game_system.add_override(&#39;NeutralDialogue&#39;, &#39;EvilDialogue&#39;)</code></p>
+
+<p>You can also remove overrides with this:</p>
+
+<p><code>$game_system.delete_override(!Key!)</code></p>
+
+<p><code>!Key!</code> is the key whose override you want to delete.</p>
+
+<p>Using the above example, I might use this to reset NeutralDialogue:</p>
+
+<p><code>$game_system.delete_override(&#39;NeutralDialogue&#39;)</code></p>
+
+<p>You do not need to delete an override before replacing it. If you call
+add_override for a key that already has an override, the override will be
+replaced. Overrides are fully compatible with both MultiLang and Database.</p>
+
+<p>v3.3 has added the <code>show_choices</code> method. Use it in a script call with this
+format:</p>
+
+<p><code>show_choices(!Key!)</code></p>
+
+<p><code>!Key!</code> should be an External Text key that you&#39;ve formatted for choices as
+described in the previous section. This call will display the choices -- but
+how do you branch for them? With conditional branches! Just set up branches
+that will check the value of the designated ChoiceVariable (found in the
+SES::ExternalText module). If the player chooses the first choice, the result
+will be 1, the second choice will be 2, and so on. If you set it up to use a
+branch for cancel, the variable will be equal to the number you gave for said
+branch. Easy, right? Just put all of your processing in those conditional
+branches. You&#39;re done!</p>
+
+<h2>Aliased Methods</h2>
+
+<ul>
+<li><p><code>module DataManager</code></p>
+
+<ul>
+<li><code>self.load_battle_test_database</code></li>
+<li><code>self.load_normal_database</code></li>
+</ul></li>
+<li><p><code>class Game_System</code></p>
+
+<ul>
+<li><code>initialize</code></li>
+</ul></li>
+<li><p><code>class Window_Base</code></p>
+
+<ul>
+<li><code>convert_escape_characters</code></li>
+</ul></li>
+<li><p><code>class Window_ChoiceList</code></p>
+
+<ul>
+<li><code>max_choice_width</code></li>
+</ul></li>
+<li><p><code>class Scene_Map</code></p>
+
+<ul>
+<li><code>create_all_windows</code></li>
+</ul></li>
+<li><p><code>class Scene_Battle</code></p>
+
+<ul>
+<li><code>create_all_windows</code></li>
+</ul></li>
+</ul>
+
+<h2>New Methods</h2>
+
+<ul>
+<li><p><code>module DataManager</code></p>
+
+<ul>
+<li><code>self.create_text</code></li>
+</ul></li>
+<li><p><code>class Game_System</code></p>
+
+<ul>
+<li><code>add_override</code></li>
+<li><code>delete_override</code></li>
+<li><code>get_override</code></li>
+</ul></li>
+<li><p><code>class Game_Message</code></p>
+
+<ul>
+<li><code>add_line</code></li>
+<li><code>clear</code></li>
+<li><code>get_color</code></li>
+<li><code>load_text</code></li>
+<li><code>too_wide?</code></li>
+</ul></li>
+<li><p><code>class Game_Interpreter</code></p>
+
+<ul>
+<li><code>block_text</code></li>
+<li><code>block_text_us</code></li>
+<li><code>get_block</code></li>
+<li><code>get_text</code></li>
+<li><code>scrolling_text</code></li>
+<li><code>text</code></li>
+</ul></li>
+<li><p><code>class Window_Base</code></p>
+
+<ul>
+<li><code>slice_escape_characters</code></li>
+</ul></li>
+<li><p><code>class Scene_Map</code></p>
+
+<ul>
+<li><code>create_namebox</code></li>
+</ul></li>
+<li><p><code>class Scene_Battle</code></p>
+
+<ul>
+<li><code>create_namebox</code></li>
+</ul></li>
+</ul>
+
+<h2>License</h2>
+
+<p>This script is made available under the terms of the MIT Expat license.
+View <a href="http://sesvxace.wordpress.com/license/">this page</a> for more detailed
+information.</p>
+
+<h2>Installation</h2>
+
+<p>Place this script below the SES Core (v2.0 or higher) script (if you are
+using it) or the Materials header, but above all other custom scripts. This
+script does not require the SES Core, but it is highly recommended.</p>
+</div></div>
+
+    <div id="footer">
+  Generated on Wed Jul  8 22:53:42 2015 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

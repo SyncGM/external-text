@@ -1,0 +1,531 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: DemiurgeWindow
+  
+    &mdash; SES External Text Documentation
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!DemiurgeWindow.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (D)</a> &raquo;
+    
+    
+    <span class="title">DemiurgeWindow</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: DemiurgeWindow
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">DemiurgeWindow</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/addons/extractor/enelvon_external_text_extractor.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <h2>DemiurgeWindow</h2>
+
+<p>The main frame of the program. Contains all of Demiurge&#39;s other GUI objects
+and manages saving/loading.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_extraction_menu_item-instance_method" title="#add_extraction_menu_item (instance method)">- (void) <strong>add_extraction_menu_item</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Adds the extraction option to the Tools menu.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_external_text_extraction_dialog-instance_method" title="#create_external_text_extraction_dialog (instance method)">- (void) <strong>create_external_text_extraction_dialog</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Creates the dialogs used for extracting text via External Text.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#en_ete_dw_up-instance_method" title="#en_ete_dw_up (instance method)">- (Object) <strong>en_ete_dw_up</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#setup_external_text_extractor-instance_method" title="#setup_external_text_extractor (instance method)">- (void) <strong>setup_external_text_extractor</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Sets up the plugin.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unload_plugins-instance_method" title="#unload_plugins (instance method)">- (void) <strong>unload_plugins</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Aliased to remove the extraction option from projects that do not use the plugin.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="add_extraction_menu_item-instance_method">
+  
+    - (<tt>void</tt>) <strong>add_extraction_menu_item</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Adds the extraction option to the Tools menu.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/addons/extractor/enelvon_external_text_extractor.rb', line 773</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_add_extraction_menu_item'>add_extraction_menu_item</span>
+  <span class='kw'>unless</span> <span class='ivar'>@menu_item_extract_text</span>
+    <span class='ivar'>@menu_item_extract_text</span> <span class='op'>=</span> <span class='const'>JMenuItem</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Extract Text for External Text</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@menu_item_extract_text</span><span class='period'>.</span><span class='id identifier rubyid_add_action_listener'>add_action_listener</span><span class='lparen'>(</span><span class='const'>ActionListener</span><span class='period'>.</span><span class='id identifier rubyid_impl'>impl</span> <span class='lbrace'>{</span>
+      <span class='ivar'>@external_text_extraction_buttons</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_b'>b</span><span class='op'>|</span> <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_selected'>selected</span> <span class='op'>=</span> <span class='kw'>false</span> <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_d'>d</span> <span class='op'>=</span> <span class='ivar'>@external_text_extraction_dialog</span><span class='period'>.</span><span class='id identifier rubyid_create_dialog'>create_dialog</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Extract Text</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_d'>d</span><span class='period'>.</span><span class='id identifier rubyid_visible'>visible</span> <span class='op'>=</span> <span class='kw'>true</span>
+      <span class='kw'>if</span> <span class='ivar'>@external_text_extraction_dialog</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span>
+        <span class='kw'>if</span> <span class='ivar'>@external_text_extraction_buttons</span><span class='lbracket'>[</span><span class='int'>1</span><span class='op'>..</span><span class='int'>3</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_b'>b</span><span class='op'>|</span> <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_selected'>selected</span> <span class='rbrace'>}</span>
+          <span class='const'>JOptionPane</span><span class='period'>.</span><span class='id identifier rubyid_show_message_dialog'>show_message_dialog</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Please make sure to close</span><span class='tstring_end'>'</span></span> <span class='op'>&lt;&lt;</span>
+                            <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'> the RPG Maker VX Ace editor before proceeding.</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+                                <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Text Extraction</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='const'>JOptionPane</span><span class='op'>::</span><span class='const'>PLAIN_MESSAGE</span><span class='rparen'>)</span>
+        <span class='kw'>end</span>
+        <span class='const'>SES</span><span class='op'>::</span><span class='const'>ExternalText</span><span class='period'>.</span><span class='id identifier rubyid_extract_text'>extract_text</span><span class='lparen'>(</span><span class='op'>*</span><span class='ivar'>@external_text_extraction_buttons</span><span class='period'>
+</span><span class='id identifier rubyid_                                                  .collect'>                                                  .collect</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_b'>b</span><span class='op'>|</span> <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_selected'>selected</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_tool_menu'>tool_menu</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='ivar'>@menu_item_extract_text</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_external_text_extraction_dialog-instance_method">
+  
+    - (<tt>void</tt>) <strong>create_external_text_extraction_dialog</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Creates the dialogs used for extracting text via External Text.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/addons/extractor/enelvon_external_text_extractor.rb', line 797</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_external_text_extraction_dialog'>create_external_text_extraction_dialog</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@external_text_extraction_dialog</span>
+  <span class='ivar'>@external_text_extraction_dialog</span> <span class='op'>=</span> <span class='const'>JOptionPane</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='ivar'>@external_text_extraction_dialog</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Select the text that you </span><span class='tstring_end'>'</span></span> <span class='op'>&lt;&lt;</span>
+                                                      <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>would like to extract.</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_panel'>panel</span> <span class='op'>=</span> <span class='const'>JPanel</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>GridBagLayout</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_c'>c</span> <span class='op'>=</span> <span class='const'>GridBagConstraints</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_gridx'>gridx</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_gridy'>gridy</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_anchor'>anchor</span> <span class='op'>=</span> <span class='const'>GridBagConstraints</span><span class='op'>::</span><span class='const'>CENTER</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_fill'>fill</span> <span class='op'>=</span> <span class='const'>GridBagConstraints</span><span class='op'>::</span><span class='const'>BOTH</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_gridheight'>gridheight</span> <span class='op'>=</span> <span class='int'>1</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_weightx'>weightx</span> <span class='op'>=</span> <span class='int'>1</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_weighty'>weighty</span> <span class='op'>=</span> <span class='int'>1</span>
+  <span class='ivar'>@external_text_extraction_buttons</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Database</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Troops</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Common Events</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Events</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>System</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+                                                     <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Vocabulary</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span>
+    <span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='const'>JCheckBox</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_panel'>panel</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='id identifier rubyid_c'>c</span><span class='rparen'>)</span>
+    <span class='ivar'>@external_text_extraction_buttons</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_b'>b</span>
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_gridy'>gridy</span> <span class='op'>+=</span> <span class='int'>1</span>
+  <span class='kw'>end</span>
+  <span class='ivar'>@external_text_extraction_dialog</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_panel'>panel</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="en_ete_dw_up-instance_method">
+  
+    - (<tt>Object</tt>) <strong>en_ete_dw_up</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+831</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/addons/extractor/enelvon_external_text_extractor.rb', line 831</span>
+
+<span class='id identifier rubyid_alias_method'>alias_method</span> <span class='symbol'>:en_ete_dw_up</span><span class='comma'>,</span> <span class='symbol'>:unload_plugins</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="setup_external_text_extractor-instance_method">
+  
+    - (<tt>void</tt>) <strong>setup_external_text_extractor</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Sets up the plugin.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+825
+826
+827
+828</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/addons/extractor/enelvon_external_text_extractor.rb', line 825</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_setup_external_text_extractor'>setup_external_text_extractor</span>
+  <span class='id identifier rubyid_create_external_text_extraction_dialog'>create_external_text_extraction_dialog</span>
+  <span class='id identifier rubyid_add_extraction_menu_item'>add_extraction_menu_item</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="unload_plugins-instance_method">
+  
+    - (<tt>void</tt>) <strong>unload_plugins</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Aliased to remove the extraction option from projects that do not use the
+plugin.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+837
+838
+839
+840</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/addons/extractor/enelvon_external_text_extractor.rb', line 837</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_unload_plugins'>unload_plugins</span>
+  <span class='id identifier rubyid_en_ete_dw_up'>en_ete_dw_up</span>
+  <span class='id identifier rubyid_tool_menu'>tool_menu</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='ivar'>@menu_item_extract_text</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Wed Jul  8 22:53:43 2015 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

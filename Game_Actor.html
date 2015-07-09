@@ -1,0 +1,507 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Game_Actor
+  
+    &mdash; SES External Text Documentation
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!Game_Actor.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (G)</a> &raquo;
+    
+    
+    <span class="title">Game_Actor</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: Game_Actor
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Game_Battler</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Game_Battler</li>
+          
+            <li class="next">Game_Actor</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/addons/external-text-database/external-text-database.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <h1>Game_Actor</h1>
+
+<p>Base class for actors in the game.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#en_et_ga_s-instance_method" title="#en_et_ga_s (instance method)">- (Object) <strong>en_et_ga_s</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Alias for setup.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#modify_strings-instance_method" title="#modify_strings (instance method)">- (void) <strong>modify_strings</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Changes the actor&#39;s set String variables to or from TextWrappers.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_graphic-instance_method" title="#set_graphic (instance method)">- (void) <strong>set_graphic</strong>(character_name, character_index, face_name, face_index) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Changes the actor&#39;s face and map graphics.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#setup-instance_method" title="#setup (instance method)">- (void) <strong>setup</strong>(actor_id) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Sets up the actor.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="en_et_ga_s-instance_method">
+  
+    - (<tt>Object</tt>) <strong>en_et_ga_s</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Alias for setup.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+247</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/addons/external-text-database/external-text-database.rb', line 247</span>
+
+<span class='id identifier rubyid_alias_method'>alias_method</span> <span class='symbol'>:en_et_ga_s</span><span class='comma'>,</span> <span class='symbol'>:setup</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="modify_strings-instance_method">
+  
+    - (<tt>void</tt>) <strong>modify_strings</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Changes the actor&#39;s set String variables to or from TextWrappers.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/addons/external-text-database/external-text-database.rb', line 261</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_modify_strings'>modify_strings</span>
+  <span class='lbracket'>[</span><span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:nickname</span><span class='comma'>,</span> <span class='symbol'>:character_name</span><span class='comma'>,</span> <span class='symbol'>:face_name</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span>
+    <span class='id identifier rubyid_cs'>cs</span> <span class='op'>=</span> <span class='id identifier rubyid_instance_variable_get'>instance_variable_get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='const'>SES</span><span class='op'>::</span><span class='const'>ExternalText</span><span class='op'>::</span><span class='const'>Uninstall</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_cs'>cs</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>SES</span><span class='op'>::</span><span class='const'>ExternalText</span><span class='op'>::</span><span class='const'>TextWrapper</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_cs'>cs</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_wrapper'>wrapper</span> <span class='op'>=</span> <span class='const'>SES</span><span class='op'>::</span><span class='const'>ExternalText</span><span class='op'>::</span><span class='const'>TextWrapper</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_actor'>actor</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_s'>s</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_wrapper'>wrapper</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_graphic-instance_method">
+  
+    - (<tt>void</tt>) <strong>set_graphic</strong>(character_name, character_index, face_name, face_index) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Changes the actor&#39;s face and map graphics.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>character_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the name of the actor&#39;s character set</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>character_index</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the index of the actor&#39;s character sprite</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>face_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the name of the actor&#39;s faceset</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>face_index</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the index of the actor&#39;s portrait</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+280
+281
+282
+283
+284
+285</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/addons/external-text-database/external-text-database.rb', line 280</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_graphic'>set_graphic</span><span class='lparen'>(</span><span class='id identifier rubyid_character_name'>character_name</span><span class='comma'>,</span> <span class='id identifier rubyid_character_index'>character_index</span><span class='comma'>,</span> <span class='id identifier rubyid_face_name'>face_name</span><span class='comma'>,</span> <span class='id identifier rubyid_face_index'>face_index</span><span class='rparen'>)</span>
+  <span class='gvar'>$game_system</span><span class='period'>.</span><span class='id identifier rubyid_add_override'>add_override</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Actor_</span><span class='embexpr_beg'>#{</span><span class='ivar'>@id</span><span class='rbrace'>}</span><span class='tstring_content'>_character_name</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_character_name'>character_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@character_index</span> <span class='op'>=</span> <span class='id identifier rubyid_character_index'>character_index</span>
+  <span class='gvar'>$game_system</span><span class='period'>.</span><span class='id identifier rubyid_add_override'>add_override</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Actor_</span><span class='embexpr_beg'>#{</span><span class='ivar'>@id</span><span class='rbrace'>}</span><span class='tstring_content'>_face_name</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_face_name'>face_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@face_index</span> <span class='op'>=</span> <span class='id identifier rubyid_face_index'>face_index</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="setup-instance_method">
+  
+    - (<tt>void</tt>) <strong>setup</strong>(actor_id) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Sets up the actor.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>actor_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the actor&#39;s Database ID</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+253
+254
+255
+256</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/addons/external-text-database/external-text-database.rb', line 253</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_setup'>setup</span><span class='lparen'>(</span><span class='id identifier rubyid_actor_id'>actor_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_en_et_ga_s'>en_et_ga_s</span><span class='lparen'>(</span><span class='id identifier rubyid_actor_id'>actor_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_modify_strings'>modify_strings</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Wed Jul  8 22:53:43 2015 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

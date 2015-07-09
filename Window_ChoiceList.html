@@ -1,0 +1,1181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Window_ChoiceList
+  
+    &mdash; SES External Text Documentation
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!Window_ChoiceList.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (W)</a> &raquo;
+    
+    
+    <span class="title">Window_ChoiceList</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: Window_ChoiceList
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Window_Command</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Window_Command</li>
+          
+            <li class="next">Window_ChoiceList</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/external-text.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <h1>Window_ChoiceList</h1>
+
+<p>Displays choices for the player to select.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#contents_height-instance_method" title="#contents_height (instance method)">- (Integer) <strong>contents_height</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the height of the window&#39;s contents.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#en_et_wcl_i-instance_method" title="#en_et_wcl_i (instance method)">- (Object) <strong>en_et_wcl_i</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#en_et_wcl_mcw-instance_method" title="#en_et_wcl_mcw (instance method)">- (Object) <strong>en_et_wcl_mcw</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Window_ChoiceList) <strong>initialize</strong>(message_window) </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Creates a new instance of Window_ChoiceList.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#item_rect-instance_method" title="#item_rect (instance method)">- (Rect) <strong>item_rect</strong>(index) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns a Rect representing the area occupied by the choice at the given index.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#max_choice_width-instance_method" title="#max_choice_width (instance method)">- (Integer) <strong>max_choice_width</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the width of the widest choice.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#page_row_max-instance_method" title="#page_row_max (instance method)">- (Integer) <strong>page_row_max</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the maximum number of items visible at a given time.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#real_height-instance_method" title="#real_height (instance method)">- (Integer) <strong>real_height</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the height of the window without its padding.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#refresh-instance_method" title="#refresh (instance method)">- (void) <strong>refresh</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Refreshes the window&#39;s contents.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#top_row-instance_method" title="#top_row (instance method)">- (Integer) <strong>top_row</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the index of the top row.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#top_row%3D-instance_method" title="#top_row= (instance method)">- (void) <strong>top_row=</strong>(row) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Sets the top row, adjusting the display y of the window&#39;s contents to ensure that it is visible.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_placement-instance_method" title="#update_placement (instance method)">- (Object) <strong>update_placement</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Window_ChoiceList (class)">Window_ChoiceList</a></span></tt>) <strong>initialize</strong>(message_window) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Creates a new instance of Window_ChoiceList.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>message_window</span>
+      
+      
+        <span class='type'>(<tt>Window_Message</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the message window that the window
+will be tied to</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1005
+1006
+1007
+1008
+1009</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/external-text.rb', line 1005</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_message_window'>message_window</span><span class='rparen'>)</span>
+  <span class='ivar'>@choice_rects</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='ivar'>@contents_height</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_en_et_wcl_i'>en_et_wcl_i</span><span class='lparen'>(</span><span class='id identifier rubyid_message_window'>message_window</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="contents_height-instance_method">
+  
+    - (<tt>Integer</tt>) <strong>contents_height</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the height of the window&#39;s contents.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the height of the window&#39;s contents</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1014
+1015
+1016</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/external-text.rb', line 1014</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_contents_height'>contents_height</span>
+  <span class='ivar'>@contents_height</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="en_et_wcl_i-instance_method">
+  
+    - (<tt>Object</tt>) <strong>en_et_wcl_i</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+999</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/external-text.rb', line 999</span>
+
+<span class='id identifier rubyid_alias_method'>alias_method</span> <span class='symbol'>:en_et_wcl_i</span><span class='comma'>,</span> <span class='symbol'>:initialize</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="en_et_wcl_mcw-instance_method">
+  
+    - (<tt>Object</tt>) <strong>en_et_wcl_mcw</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1043</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/external-text.rb', line 1043</span>
+
+<span class='id identifier rubyid_alias_method'>alias_method</span> <span class='symbol'>:en_et_wcl_mcw</span><span class='comma'>,</span> <span class='symbol'>:max_choice_width</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="item_rect-instance_method">
+  
+    - (<tt>Rect</tt>) <strong>item_rect</strong>(index) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a Rect representing the area occupied by the choice at the given
+index.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>index</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the index of the choice</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Rect</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the area occupied by the choice at the given index</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1023
+1024
+1025
+1026
+1027
+1028
+1029
+1030
+1031
+1032
+1033
+1034
+1035
+1036
+1037
+1038
+1039
+1040
+1041</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/external-text.rb', line 1023</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_item_rect'>item_rect</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='ivar'>@choice_rects</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_rect'>rect</span> <span class='op'>=</span> <span class='const'>Rect</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='id identifier rubyid_rect'>rect</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='id identifier rubyid_item_width'>item_width</span>
+    <span class='id identifier rubyid_rect'>rect</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='op'>=</span> <span class='id identifier rubyid_item_height'>item_height</span> 
+    <span class='kw'>if</span> <span class='gvar'>$game_message</span><span class='period'>.</span><span class='id identifier rubyid_choices'>choices</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_rect'>rect</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='op'>*=</span> <span class='gvar'>$game_message</span><span class='period'>.</span><span class='id identifier rubyid_choices'>choices</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[\r\n]+</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_rect'>rect</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_index'>index</span> <span class='op'>%</span> <span class='id identifier rubyid_col_max'>col_max</span> <span class='op'>*</span> <span class='lparen'>(</span><span class='id identifier rubyid_item_width'>item_width</span> <span class='op'>+</span> <span class='id identifier rubyid_spacing'>spacing</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span> <span class='op'>&gt;</span> <span class='int'>0</span>
+      <span class='id identifier rubyid_last_rect'>last_rect</span> <span class='op'>=</span> <span class='id identifier rubyid_item_rect'>item_rect</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_rect'>rect</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span> <span class='op'>=</span> <span class='id identifier rubyid_last_rect'>last_rect</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span> <span class='op'>+</span> <span class='id identifier rubyid_last_rect'>last_rect</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_rect'>rect</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span> <span class='op'>=</span> <span class='id identifier rubyid_index'>index</span> <span class='op'>/</span> <span class='id identifier rubyid_col_max'>col_max</span> <span class='op'>*</span> <span class='id identifier rubyid_item_height'>item_height</span>
+    <span class='kw'>end</span>
+    <span class='ivar'>@choice_rects</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_rect'>rect</span>
+  <span class='kw'>end</span>
+  <span class='ivar'>@choice_rects</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="max_choice_width-instance_method">
+  
+    - (<tt>Integer</tt>) <strong>max_choice_width</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the width of the widest choice.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the width of the widest choice</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1047
+1048
+1049
+1050
+1051</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/external-text.rb', line 1047</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_max_choice_width'>max_choice_width</span>
+  <span class='gvar'>$game_message</span><span class='period'>.</span><span class='id identifier rubyid_choices'>choices</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> 
+    <span class='id identifier rubyid_text_size'>text_size</span><span class='lparen'>(</span><span class='id identifier rubyid_slice_escape_characters'>slice_escape_characters</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span>
+  <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="page_row_max-instance_method">
+  
+    - (<tt>Integer</tt>) <strong>page_row_max</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the maximum number of items visible at a given time.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the maximum number of items visible at a given time</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1056
+1057
+1058
+1059
+1060
+1061
+1062
+1063
+1064</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/external-text.rb', line 1056</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_page_row_max'>page_row_max</span>
+  <span class='id identifier rubyid_max'>max</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='id identifier rubyid_top_row'>top_row</span>
+  <span class='id identifier rubyid_size'>size</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_height'>height</span> <span class='op'>-</span> <span class='id identifier rubyid_padding'>padding</span> <span class='op'>-</span> <span class='id identifier rubyid_padding_bottom'>padding_bottom</span><span class='rparen'>)</span>
+  <span class='kw'>while</span> <span class='lparen'>(</span><span class='id identifier rubyid_size'>size</span> <span class='op'>-=</span> <span class='id identifier rubyid_item_rect'>item_rect</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span><span class='rparen'>)</span> <span class='op'>&gt;</span> <span class='int'>0</span>
+    <span class='id identifier rubyid_max'>max</span> <span class='op'>+=</span> <span class='int'>1</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_max'>max</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="real_height-instance_method">
+  
+    - (<tt>Integer</tt>) <strong>real_height</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the height of the window without its padding.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the height of the window without its padding</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1069
+1070
+1071</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/external-text.rb', line 1069</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_real_height'>real_height</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='op'>-</span> <span class='id identifier rubyid_standard_padding'>standard_padding</span> <span class='op'>*</span> <span class='int'>2</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="refresh-instance_method">
+  
+    - (<tt>void</tt>) <strong>refresh</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Refreshes the window&#39;s contents.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1076
+1077
+1078
+1079
+1080
+1081
+1082
+1083
+1084
+1085</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/external-text.rb', line 1076</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_refresh'>refresh</span>
+  <span class='ivar'>@choice_rects</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
+  <span class='ivar'>@contents_height</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='ivar'>@top_row</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='gvar'>$game_message</span><span class='period'>.</span><span class='id identifier rubyid_choices'>choices</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
+    <span class='kw'>next</span> <span class='kw'>unless</span> <span class='id identifier rubyid_c'>c</span>
+    <span class='ivar'>@contents_height</span> <span class='op'>+=</span> <span class='lparen'>(</span><span class='id identifier rubyid_item_height'>item_height</span> <span class='op'>*</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[\r\n]+</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='kw'>super</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="top_row-instance_method">
+  
+    - (<tt>Integer</tt>) <strong>top_row</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the index of the top row.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the index of the top row</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1090
+1091
+1092</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/external-text.rb', line 1090</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_top_row'>top_row</span>
+  <span class='ivar'>@top_row</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="top_row=-instance_method">
+  
+    - (<tt>void</tt>) <strong>top_row=</strong>(row) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Sets the top row, adjusting the display y of the window&#39;s contents to ensure
+that it is visible.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>row</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the new top row</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1099
+1100
+1101
+1102
+1103
+1104
+1105
+1106
+1107
+1108
+1109
+1110
+1111
+1112
+1113
+1114
+1115
+1116</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/external-text.rb', line 1099</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_top_row='>top_row=</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_item_rect'>item_rect</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span> <span class='op'>&lt;=</span> <span class='id identifier rubyid_oy'>oy</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
+    <span class='ivar'>@top_row</span> <span class='op'>=</span> <span class='id identifier rubyid_row'>row</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_oy'>oy</span> <span class='op'>=</span> <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span>
+  <span class='kw'>elsif</span> <span class='ivar'>@contents_height</span> <span class='op'>-</span> <span class='id identifier rubyid_oy'>oy</span> <span class='op'>-</span> <span class='id identifier rubyid_real_height'>real_height</span> <span class='op'>&gt;</span> <span class='int'>0</span>
+    <span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='id identifier rubyid_top_row'>top_row</span>
+    <span class='id identifier rubyid_h'>h</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='op'>..</span><span class='ivar'>@index</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span><span class='id identifier rubyid_n'>n</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span> <span class='op'>+=</span> <span class='id identifier rubyid_item_rect'>item_rect</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='rbrace'>}</span>
+    <span class='kw'>while</span> <span class='id identifier rubyid_h'>h</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_real_height'>real_height</span>
+      <span class='id identifier rubyid_i'>i</span> <span class='op'>+=</span> <span class='int'>1</span>
+      <span class='id identifier rubyid_h'>h</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='op'>..</span><span class='ivar'>@index</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span><span class='id identifier rubyid_n'>n</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span> <span class='op'>+=</span> <span class='id identifier rubyid_item_rect'>item_rect</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span>
+    <span class='ivar'>@top_row</span> <span class='op'>=</span> <span class='id identifier rubyid_i'>i</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_oy'>oy</span> <span class='op'>=</span> <span class='id identifier rubyid_item_rect'>item_rect</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_placement-instance_method">
+  
+    - (<tt>Object</tt>) <strong>update_placement</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1122
+1123
+1124
+1125
+1126
+1127
+1128
+1129
+1130
+1131
+1132
+1133
+1134
+1135
+1136
+1137
+1138
+1139
+1140
+1141
+1142
+1143
+1144
+1145
+1146
+1147
+1148
+1149</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/external-text.rb', line 1122</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_placement'>update_placement</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_oy'>oy</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_h'>h</span> <span class='op'>=</span> <span class='const'>SES</span><span class='op'>::</span><span class='const'>ExternalText</span><span class='op'>::</span><span class='const'>NumChoiceLines</span>
+  <span class='kw'>if</span> <span class='const'>SES</span><span class='op'>::</span><span class='const'>ExternalText</span><span class='op'>::</span><span class='const'>ChoiceShrinkHeight</span>
+    <span class='ivar'>@choice_rects</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
+    <span class='id identifier rubyid_ch'>ch</span> <span class='op'>=</span> <span class='int'>0</span>
+    <span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='id identifier rubyid_item_rect'>item_rect</span><span class='lparen'>(</span><span class='gvar'>$game_message</span><span class='period'>.</span><span class='id identifier rubyid_choices'>choices</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_ch'>ch</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span> <span class='op'>+</span> <span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='id identifier rubyid_line_height'>line_height</span>
+    <span class='id identifier rubyid_h'>h</span> <span class='op'>=</span> <span class='id identifier rubyid_ch'>ch</span> <span class='kw'>if</span> <span class='id identifier rubyid_h'>h</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_ch'>ch</span>
+  <span class='kw'>end</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='op'>=</span> <span class='id identifier rubyid_fitting_height'>fitting_height</span><span class='lparen'>(</span><span class='id identifier rubyid_h'>h</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='const'>SES</span><span class='op'>::</span><span class='const'>ExternalText</span><span class='op'>::</span><span class='const'>ChoiceFillWidth</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='const'>Graphics</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span>
+  <span class='kw'>else</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_max_choice_width'>max_choice_width</span> <span class='op'>+</span> <span class='int'>12</span><span class='comma'>,</span> <span class='int'>96</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span> <span class='op'>+</span> <span class='id identifier rubyid_padding'>padding</span> <span class='op'>*</span> <span class='int'>2</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='const'>Graphics</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_min'>min</span>
+  <span class='kw'>end</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='const'>Graphics</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span> <span class='op'>-</span> <span class='id identifier rubyid_width'>width</span>
+  <span class='kw'>if</span> <span class='ivar'>@message_window</span><span class='period'>.</span><span class='id identifier rubyid_open?'>open?</span>
+    <span class='kw'>if</span> <span class='ivar'>@message_window</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span> <span class='op'>&gt;=</span> <span class='const'>Graphics</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='op'>/</span> <span class='int'>2</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span> <span class='op'>=</span> <span class='ivar'>@message_window</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span> <span class='op'>-</span> <span class='id identifier rubyid_height'>height</span>
+    <span class='kw'>else</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span> <span class='op'>=</span> <span class='ivar'>@message_window</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span> <span class='op'>+</span> <span class='ivar'>@message_window</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span> <span class='op'>=</span> <span class='const'>Graphics</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='op'>-</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Wed Jul  8 22:53:42 2015 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

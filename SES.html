@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: SES
+  
+    &mdash; SES External Text Documentation
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!SES.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (S)</a> &raquo;
+    
+    
+    <span class="title">SES</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Module: SES
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/external-text.rb<span class="defines">,<br />
+  lib/addons/multi-lang/multi-lang.rb,<br /> lib/addons/extractor/enelvon_external_text_extractor.rb,<br /> lib/addons/external-text-database/external-text-database.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>--</p>
+
+<h1>External Text: Database v1.1.1 by Enelvon</h1>
+
+<h2>Summary</h2>
+
+<p>This script allows you to keep the text contents of your Database in external
+files. It can also hook into any method that returns a string and use keys in
+your External Text files to override them. It&#39;s compatible with MultiLang from
+the start, so your translation will be taken to the next level!</p>
+
+<h2>Compatibility Information</h2>
+
+<p><strong>Required Scripts:</strong>
+SES External Text v3.2.0 or higher
+(Optional) SES External Text: MultiLang v2.1.0 or higher</p>
+
+<p><strong>Known Incompatibilities:</strong>
+None.</p>
+
+<h2>Usage</h2>
+
+<p>There are two parts to using this script: putting keys in your External Text
+files and adding new overrides.</p>
+
+<p>Keys are automatically generated and follow a simple format:</p>
+
+<p><code>[Key] Class_!ID!_!method!</code></p>
+
+<p>For example, if I wanted to override actor 1&#39;s name I would use this key:</p>
+
+<p><code>[Key] Actor_1_name</code></p>
+
+<p>If I wanted to override a skill&#39;s cast message, I might do this:</p>
+
+<p><code>[Key] Skill_3_message1</code></p>
+
+<p>If a given override key is not present, the default value (as set in the
+Database) will be used. For overridden non-database methods, the default value
+is whatever the script that introduced it supplied.</p>
+
+<p>Custom overrides are slightly trickier (though not by much). Add the name of
+the class that contains the method you want to override to the Override hash
+in the SES::ExternalText module. Its value should be an array containing the
+names of the methods that you want to add overrides for. As above, keys will
+be automatically generated. If the class being overriden does not have an id,
+the format for the key changes to this:</p>
+
+<p><code>[Key] Class_!method!</code></p>
+
+<p>For example, I could add this to the hash:</p>
+
+<p><code>&#39;Game_Party&#39; =&gt; [:name],</code></p>
+
+<p>And the new key would be this:</p>
+
+<p><code>[Key] Game_Party_name</code></p>
+
+<p>Finally, RPG::System::Terms uses an array-based method of storing its vocab.
+This has been given a manual override. For a list of the possible keys that it
+uses, please look at the RPG::System::Terms section of this script.</p>
+
+<p>Oh, and one last &#39;note&#39;... You may be thinking &quot;Well, Enelvon, the notes of
+Database objects are strings. Can I override those? What about character
+sprites and map battlebacks? Those are strings.&quot; The answer is &quot;Absolutely!&quot;
+Just add :note, :character_name, :battleback_floor_name, or whatever to the
+arrays, and you&#39;re golden. Have fun!</p>
+
+<h2>Aliased Methods</h2>
+
+<ul>
+<li><code>class Game_Actor</code>
+
+<ul>
+<li><code>setup</code></li>
+</ul></li>
+</ul>
+
+<h2>Overwritten Methods</h2>
+
+<p>Anything you add, plus everything in RPG::System::Terms. Additionally:</p>
+
+<ul>
+<li><p><code>class Game_Actor</code></p>
+
+<ul>
+<li><code>set_graphic</code></li>
+</ul></li>
+<li><p><code>class Game_Interpreter</code></p>
+
+<ul>
+<li><code>command_320</code></li>
+<li><code>command_324</code></li>
+</ul></li>
+<li><p><code>class Scene_Name</code></p>
+
+<ul>
+<li><code>on_input_ok</code></li>
+</ul></li>
+</ul>
+
+<h2>License</h2>
+
+<p>This script is made available under the terms of the MIT Expat license.
+View <a href="http://sesvxace.wordpress.com/license/">this page</a> for more detailed
+information.</p>
+
+<h2>Installation</h2>
+
+<p>Put this script below Materials and above Main. It must also be below
+SES - External Text v3.1.0 or higher. If you use MultiLang (must be v2.1.0 or
+higher), place this below that as well. Finally, if you add custom overrides,
+this script must be below all scripts that contain overriden methods.</p>
+
+<h2>Uninstallation</h2>
+
+<p>This only applies to you if you have savegames made while using this script
+that you would like to preserve. Set the Uninstall constant in
+SES::ExternalText to true and play the game. Load and save every file that you
+would like to keep. You may now remove the script with no problems.</p>
+
+<p>++</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="SES/ExternalText.html" title="SES::ExternalText (module)">ExternalText</a></span>
+    
+  
+    
+  
+</p>
+
+
+
+
+
+
+
+
+
+</div>
+
+    <div id="footer">
+  Generated on Wed Jul  8 22:53:42 2015 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
