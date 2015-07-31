@@ -1,7 +1,7 @@
 #--
-# External Text v3.3.3 by Enelvon
+# External Text v3.3.4 by Enelvon
 # =============================================================================
-# 
+#
 # Summary
 # -----------------------------------------------------------------------------
 # This script allows you to create text files and use their contents in the
@@ -9,18 +9,18 @@
 # avoid worrying about whether or not your text will fit in the message window.
 # It uses a simple tagging system to divide the files into messages and supply
 # them with faces to be displayed (if desired).
-# 
+#
 # Compatibility Information
 # -----------------------------------------------------------------------------
 # **Required Scripts:**
 # None.
-# 
+#
 # **Known Incompatibilities:**
 # None specifically - though while ordinary text codes (\c, \n, etc) can be
 # used, custom ones cannot if they are persistent (like \c is) - they will be
 # reset whenever text wraps to a new page. \c is handled so that it will not
 # be reset, and it is possible to add handlers for other persistent codes.
-# 
+#
 # Usage
 # -----------------------------------------------------------------------------
 # Create a directory named Text in the Data folder for your project. Inside of
@@ -28,99 +28,99 @@
 # can add as many text files to the folder as you'd like, and can even add
 # subfolders for organization. The names don't matter, so do whatever works for
 # you! To add text to the files, use this format:
-# 
+#
 #    `[Key] !Key!`
 #    `[Face] !File!, !Index!`
 #    `!Text!`
-# 
+#
 # You may omit the `[Face]` line to have a message without a face, but the
 # `[Key]` line and the text itself are necessary. The replacements you should
 # use with the above format are:
-# 
+#
 #    `!Key!` with an identifier for the text. Each of these *must* be unique.
 #    `!File!` with the name of the faceset you want to display, minus the
 #       extension.
 #    `!Index!` with the index of the face in the file, starting with 0.
 #    `!Text!` with the message you want to display. Note that new lines within
 #       a message have no effect other than adding a space.
-# 
+#
 # Note that you must playtest the game before creating an encrypted archive,
 # or your changes in Text.txt will not be reflected in the game, as it reads
 # data by creating a Text.rvdata2 file from Text.txt - something that it will
 # be unable to do after encryption.
-# 
+#
 # There are three additional face tags, one of which will require you to
 # modify the Faces hash in SES::ExternalText. I'll break them all down here:
-# 
+#
 #    `[AFace] !Index!`
-# 
+#
 # This is pretty self-explanatory. Replace `!Index!` with the ID of the actor
 # whose face you want to show.
-# 
+#
 #    `[PFace] !Index!`
-# 
+#
 # Another easy one. Replace !Index! with an index that will correspond to the
 # player's party at the time they receive the message. The first slot is 0,
 # the second is 1, and so on.
-# 
+#
 #    `[DFace] !Key!`
-# 
+#
 # This is the one that requires some modification. It's handy for recurring
 # NPCs - you define a face in the Faces hash of SES::ExternalText and replace
 # !Key! with the name you gave it in the hash. There is an example for Ralph
 # already in the hash, as well as format instructions, so this should be easy
 # for you to use as well.
-# 
+#
 # Another tag you can include is `[Name]`. It will display a namebox with the
 # given name. Text codes will work with it.
-# 
+#
 #    `[Name] \c[15]\n[1]`
-# 
+#
 # Would use the first actor's name in color 15.
-# 
+#
 #    `[Name] Ralph`
-# 
+#
 # Would use 'Ralph', and so on. There are actually two styles for names: the
 # namebox (which is the default) and in-text names, which are displayed at the
 # top of each message page. You can toggle it with the NameStyle constant in
 # SES::ExternalText. Set it to :box to use the namebox or :text to use in-text
 # names.
-# 
+#
 # As of v1.5, there is also the `[FName]` tag, which works like the `[Name]` tag
 # except it also sets the face to whatever is entered, like `[DFace]` would.
 # This method of setting the name does not allow you to use text codes, unlike
 # the normal one, unless you have set up the key in the Faces hash to include
 # them.
-# 
+#
 # As of v3.0, the `[Line]` tag is deprecated (though still usable for backwards
 # compatibility). Add a new line instead.
-# 
+#
 # You can comment out lines by beginning them with a # or //. You can use this
 # to divide your Text file into sections, to help with organization.
-# 
+#
 # v1.5 also alters how text tags are checked - they are now stored in a hash
 # in the SES::ExternalText module, making it easy to add your own. The keys
 # of the hash should be Regular Expressions, and the values should be strings
 # for evaluation.
-# 
+#
 # New to v1.6 are the location and background tags. To alter the location of
 # the message window, use this tag:
-# 
+#
 #    `[Position] !Pos!`
-# 
+#
 # `!Pos!` can be Top, Center, or Bottom. You will likely never need to use the
 # Bottom tag, as the default position is Bottom. It is included for the sake
 # of completeness.
-# 
+#
 # The background tag allows you to choose between Normal, Dim, and Transparent
 # backgrounds, like you would for normal text. You use it like this:
-# 
+#
 #    `[Background] !Back!`
-# 
+#
 # Replace `!Back!` with Normal, Dim, or Transparent. You will probably never use
 # Normal, as it's the default. Much like Bottom for positions, it was included
 # solely for the sake of completeness.
-# 
+#
 # v1.7 adds in a text code that can be used to call text. I would only bother
 # using it if you have a global text codes script of some kind - this script
 # does not provide such a function, and I do not intend to add one. Note that
@@ -128,9 +128,9 @@
 # its length yourself. You can use this alongside a global text codes script
 # to make translating your game into multiple languages easy - just use it
 # in the names/descriptions of Database objects. You use it like this:
-# 
+#
 #    `\t[!Key!]`
-# 
+#
 # `!Key!` is, of course, the key of the text you're referencing.
 #
 # v3.3 has added the ability to manage choices with External Text. To set up
@@ -152,23 +152,23 @@
 #
 # You're done! Go to the Script Calls section to learn how to use your new
 # choices.
-# 
+#
 # Script Calls
 # -----------------------------------------------------------------------------
 # To display text, place this in an event's script command:
-# 
+#
 #   `text(!Key!)`
-# 
+#
 #   `!Key!` should be replaced with a string corresponding to the key of the
 #    text that you want to display. As an example, if I had a text key called
 #    Intro, I would use this to call it:
-# 
+#
 #   `text('Intro')`
-# 
+#
 # You can also display multiple sections of text at once with this:
-# 
+#
 #   `block_text(!Key!)`
-# 
+#
 #   `!Key!` should be replaced with either a Regular Expression or a string.
 #    If you use a regular expression, it will display the text for all
 #    keys that match it. If you use a string, it will display the text
@@ -176,11 +176,11 @@
 #    scenes. As an example, let's say we have a number of messages for
 #    our introduction. Their keys are called Intro 1 through Intro 12.
 #    Instead of 12 calls of `text("Intro #")`, we could use one of these:
-# 
+#
 #   `block_text(/^Intro \d+/)`
-# 
+#
 #   `block_text("Intro")`
-# 
+#
 #   The first one is better, of course, but both work. The problem with
 #    the second comes in if we have another key that's similar - let's
 #    say Ralph's Introduction. It would be called too, because it contains
@@ -200,23 +200,23 @@
 #
 # v3.0 also adds the `block_text_us` method. It takes the same parameters as
 # `block_text`, but does not sort the keys before iterating.
-# 
+#
 # As of v1.7, there are two get_text calls. One can be used only in an event,
 # and is used like this:
-# 
+#
 #   `get_text(!Key!)`
-# 
+#
 # I would recommend you use this with variable assignment, as it has no real
 # use otherwise. !Key! is obviously the key of the text you want to use. You
 # can also use a form of this command in your own scripts, by calling this:
-# 
+#
 #   `SES::ExternalText.get_text(key)`
-# 
+#
 # As of v2.0, you can now use External Text in conjunction with the Scrolling
 # Text feature by using this call:
-# 
+#
 #   `scrolling_text(!Key!, !Speed!, !NoFast!)`
-# 
+#
 # `!Key!` is obviously the key for the text. `!Speed!` is how quickly you want
 # it to move - 2 is the default. !NoFast! is whether or not the player should be
 # blocked from hold the action key to increase the scroll speed - false allows
@@ -265,7 +265,7 @@
 # branch for cancel, the variable will be equal to the number you gave for said
 # branch. Easy, right? Just put all of your processing in those conditional
 # branches. You're done!
-# 
+#
 # Aliased Methods
 # -----------------------------------------------------------------------------
 # * `module DataManager`
@@ -286,7 +286,7 @@
 #
 # * `class Scene_Battle`
 #     - `create_all_windows`
-# 
+#
 # New Methods
 # -----------------------------------------------------------------------------
 # * `module DataManager`
@@ -320,54 +320,54 @@
 #
 # * `class Scene_Battle`
 #     - `create_namebox`
-# 
+#
 # License
 # -----------------------------------------------------------------------------
 # This script is made available under the terms of the MIT Expat license.
 # View [this page](http://sesvxace.wordpress.com/license/) for more detailed
 # information.
-# 
+#
 # Installation
 # -----------------------------------------------------------------------------
 # Place this script below the SES Core (v2.0 or higher) script (if you are
 # using it) or the Materials header, but above all other custom scripts. This
 # script does not require the SES Core, but it is highly recommended.
-# 
+#
 #++
 module SES
   # ExternalText
   # ===========================================================================
   # Module containing configuration information for the External Text script.
   module ExternalText
-    
+   
     # Add faces here. The format is "Name" => ["Faceset", Index],
     Faces = {
-      
+     
       'Ralph' => ['Actor1', 0],
-      
+     
     }
-    
+   
     # Set this to either :box or :text. :box uses the name box, :text will
     # include the name at the top of each page.
     NameStyle = :box
-    
+   
     # The ID of the variable that will receive the selected index from a call to
     # show_choices. This may be used in conditional branches to determine what
     # commands to execute.
     ChoiceVariable = 1
-    
+   
     # The maximum number of lines to display at a time in the choice window. Any
     # lines beyond this number will cause the window to become scrollable.
     NumChoiceLines = 4
-    
+   
     # Whether or not to reduce the height of the choice window when the number
     # of lines that it contains is less than NumChoiceLines.
     ChoiceShrinkHeight = true
-    
+   
     # Whether or not the choice window should always be as wide as the game
     # window.
     ChoiceFillWidth = true
-    
+   
     # Whether or not the choice selection window should replace the message
     # window in certain situations. There are three options:
     #
@@ -380,13 +380,13 @@ module SES
     # :never prevents the choice selection window from ever appearing in the
     #   message window's space.
     ChoiceReplaceMessageBox = :hidden
-    
+   
     # This is a hash of tags that will be searched for in the Text.txt file. You
     # can customize this to add new tags. Scripters can add new tags in their
     # scripts by making a new hash and calling SES::ExternalText::Tags.merge!
     # with it.
     Tags = {
-    
+   
       /^\[Key\]\s*(.+)/i =>
         proc do |key|
           @key = key
@@ -394,10 +394,10 @@ module SES
             # Face and Name
             # Filename, Index, Actor Index, Party Index, Name
             [ '',       0,     nil,         nil,         ''   ],
-            
+           
             # Text
               '',
-            
+           
             # Options
             # Position, Background, Choice
             [ 2,        0,          0      ]
@@ -409,59 +409,66 @@ module SES
           $game_text[@key][0][0] = name
           $game_text[key][0][1] = index.to_i
         end,
-                        
+                       
       /^\[AFace\]\s*(\d+)/i =>
         proc do |actor_index|
           $game_text[@key][0][2] = actor_index.to_i
         end,
-    
+   
       /^\[PFace\]\s*(\d+)/i =>
         proc do |party_index|
           $game_text[@key][0][3] = party_index.to_i
         end,
-    
+   
       /^\[DFace\]\s*(.+)/i =>
         proc do |name|
           $game_text[@key][0][0] = SES::ExternalText::Faces[name][0]
           $game_text[@key][0][1] = SES::ExternalText::Faces[name][1]
         end,
-                    
+                   
       /^\[Name\]\s*(.+)/i =>
         proc do |name|
           $game_text[key][0][4] = name
         end,
-          
+         
       /^\[FName\]\s*(.+)/ =>
         proc do |name|
           $game_text[@key][0][4] = name
           $game_text[@key][0][0] = SES::ExternalText::Faces[name][0]
           $game_text[@key][0][1] = SES::ExternalText::Faces[name][1]
         end,
-              
+             
       /^\[Position\]\s*(Top|Center|Bottom)/i =>
         proc do |pos|
           $game_text[@key][2][0] = if pos.downcase == 'top' then 0
                                    elsif pos.downcase == 'center' then 1
                                    else 2 end
         end,
-                                  
+                                 
       /^\[Background\]\s*(Normal|Dim|Transparent)/i =>
         proc do |bg|
           $game_text[@key][2][1] = if bg.downcase == 'normal' then 0
                                    elsif bg.downcase == 'dim' then 1
                                    else 2 end
         end,
-      
+     
       /^\[Default Choice\]\s*(\-?\d+)/i =>
         proc do |choice|
           $game_text[key][2][2] = choice.to_i
         end,
     }
-    
+   
     # The proc (lambda, in this case) called by Game_Message when the
     # show_choices method is used to display choices from External Text.
     ChoiceProc = lambda { |n| puts n; $game_variables[ChoiceVariable] = n + 1 }
-    
+   
+    # Returns a cached Window_Message instance.
+    #
+    # @return [Window_Message]
+    def self.message_window
+      @message_window ||= Window_Message.new
+    end
+       
     # Iterates through all files in a chain of directories.
     #
     # @param dir [String] the base directory from which to iterate
@@ -478,7 +485,7 @@ module SES
         end
       end
     end
-    
+   
     # Gets the text referenced by a particular key.
     #
     # @param key [String] the key referring to the desired text
@@ -492,21 +499,21 @@ module SES
         $game_text[key].nil? ? nil : $game_text[key][1].strip
       end
     end
-    
+   
     # Returns the current key during serialization.
     #
     # @return [String] the current key
     def self.key
       @key
     end
-    
+   
     # TextWrapper
     # =========================================================================
     # Wrapper class for string constants and variables to allow proper access
     # to game text.
     class TextWrapper
       attr_reader :is_key
-      
+     
       # Creates a new instance of TextWrapper.
       #
       # @param src [String] the name of the constant or variable that contains
@@ -530,7 +537,7 @@ module SES
           else @string = obj.instance_variable_get("@#{src}") end
         end
       end
-      
+     
       # Handles unknown methods. If a String would respond to them, they are
       # passed to the String form of the wrapper.
       #
@@ -540,7 +547,7 @@ module SES
       def method_missing(method, *args, &block)
         (s = to_s).respond_to?(method) ? s.send(method, *args, &block) : super
       end
-      
+     
       # Checks if a String can respond to the passed method.
       #
       # @param method [Symbol,String] the name of a method
@@ -548,7 +555,7 @@ module SES
       def respond_to?(method)
         return @string.respond_to?(method)
       end
-      
+     
       # Converts the wrapper to its string form.
       #
       # @return [String] the string form of the wrapper
@@ -560,14 +567,14 @@ module SES
     end
   end
 end
-
+ 
 ($imported ||= {})['SES - External Text'] = '3.3.3'
-
+ 
 # DataManager
 # =============================================================================
 # The singleton class of the default RPG Maker module for handling data.
 class << DataManager
-  
+ 
   # Serializes Text.txt to Text.rvdata2, allowing it to be read from inside an
   # encrypted archive.
   #
@@ -595,7 +602,7 @@ class << DataManager
       Marshal.dump($game_text, file)
     end
   end
-  
+ 
   alias_method :en_et_dm_lbd, :load_battle_test_database
   # Loads the game's databases for a battle test.
   #
@@ -605,7 +612,7 @@ class << DataManager
     create_text if FileTest.directory?('Data/Text')
     $game_text = load_data('Data/Text.rvdata2') unless $game_text
   end
-  
+ 
   alias_method :en_et_dm_lnd, :load_normal_database
   # Loads the game's databases.
   #
@@ -616,12 +623,12 @@ class << DataManager
     $game_text = load_data('Data/Text.rvdata2') unless $game_text
   end
 end
-
+ 
 # Game_System
 # =============================================================================
 # Holds basic system information for the game.
 class Game_System
-  
+ 
   alias_method :en_et_gs_i, :initialize
   # Creates a new instance of Game_System.
   #
@@ -630,7 +637,7 @@ class Game_System
     en_et_gs_i
     @text_overrides = {}
   end
-  
+ 
   # Adds an override to the text overrides hash.
   #
   # @param key [String] the key of the text being overridden
@@ -639,7 +646,7 @@ class Game_System
   def add_override(key, value)
     @text_overrides[key] = SES::ExternalText::TextWrapper.new(value)
   end
-  
+ 
   # Deletes an override from the text overrides hash.
   #
   # @param key [String] the override to delete
@@ -647,7 +654,7 @@ class Game_System
   def delete_override(key)
     @text_overrides.delete(key)
   end
-  
+ 
   # Gets the value of a text override, if it exists.
   #
   # @param key [String] the override to grab
@@ -657,13 +664,14 @@ class Game_System
     @text_overrides[key]
   end
 end
-
+ 
 # Game_Message
 # =============================================================================
 # Controls the game's message window.
 class Game_Message
+   
   attr_reader :name
-  
+ 
   # Adds a new line to the message window.
   #
   # @param lines [Array<String>] the current lines in the message window
@@ -684,7 +692,7 @@ class Game_Message
     end
     return i
   end
-  
+ 
   alias_method :en_et_gm_c, :clear
   # Clears the message window.
   #
@@ -693,7 +701,7 @@ class Game_Message
     en_et_gm_c
     @name = ''
   end
-  
+ 
   # Converts escape characters in the given text.
   #
   # @param text [String] the text to convert
@@ -702,15 +710,11 @@ class Game_Message
     if SceneManager.scene.respond_to?(:message_window)
       @window = SceneManager.scene.message_window
     else
-      if !@window || (@window && @window.disposed?)
-        @window.dispose
-        @window = Window_Message.new
-      end
+      SES::ExternalText.message_window.convert_escape_characters(text)
     end
-    @window.convert_escape_characters(text)
   end
-
-  
+ 
+ 
   # Gets the most recently used text color code.
   #
   # @param text [String] the string to scan for color codes
@@ -721,7 +725,7 @@ class Game_Message
     convert_escape_characters(text).gsub(/\eC(?:\[\w+?\])?/i) { |s| cc = s }
     return cc
   end
-  
+ 
   # Sets up choices from an External Text key.
   #
   # @param data [Array<Array<String,Integer,NilClass>,String>] the called text
@@ -737,7 +741,7 @@ class Game_Message
     @choice_cancel_type = data[2][2]
     @choice_proc = SES::ExternalText::ChoiceProc
   end
-  
+ 
   # Sets up the called text, as well as any face and name data it contains.
   #
   # @param data [Array<Array<String,Integer,NilClass>,String>] the called text
@@ -763,7 +767,7 @@ class Game_Message
     new_page
     return wrap_text(text, data, name)
   end
-  
+ 
   # Sets the current message window text.
   #
   # @param text [Array<String>] the array of lines to display
@@ -771,7 +775,7 @@ class Game_Message
   def set_text(text)
     @texts = text
   end
-  
+ 
   # Removes all escape characters from the given text and returns it.
   #
   # @param text [String] the text to adjust
@@ -779,25 +783,21 @@ class Game_Message
   def slice_escape_characters(text)
     convert_escape_characters(text).gsub(/\e(\w)(\[(\w+)\])?/) {""}
   end
-  
+ 
   # Checks if given text is too wide for the message window.
   #
   # @param text [String] the text to check
   # @param type [Symbol] determines miscellaneous adjustments
   # @return [Boolean] whether or not the text is too wide to fit
   def too_wide?(text, type)
-    unless @message_width
-      win = Window_Message.new
-      @message_width = win.contents_width
-      win.dispose
-    end
-    @dummy_bitmap ||= Bitmap.new(1,1)
+    @message_width ||= SES::ExternalText.message_window.contents_width
     width = @message_width
     width -= 8 if type == :choices
     width -= 112 unless @face_name.empty?
-    @dummy_bitmap.text_size(slice_escape_characters(text)).width > width
+    SES::ExternalText.message_window.
+    text_size(slice_escape_characters(text)).width > width
   end
-  
+ 
   # Wraps the given text to fit in the message window.
   #
   # @param text [String] the text to wrap
@@ -837,12 +837,12 @@ class Game_Message
     return lines
   end
 end
-
+ 
 # Game_Interpreter
 # =============================================================================
 # Executes event commands.
 class Game_Interpreter
-  
+ 
   # Allows you to call multiple lines of text at once. Sorts keys before
   # iterating.
   #
@@ -853,7 +853,7 @@ class Game_Interpreter
   def block_text(key, from = 0, to = -1)
     get_block($game_text.keys.sort, key, from, to)
   end
-  
+ 
   # Allows you to call multiple lines of text at once. Does not sort keys before
   # iterating.
   #
@@ -864,7 +864,7 @@ class Game_Interpreter
   def block_text_us(key, from = 0, to = -1)
     get_block($game_text.keys, key, from, to)
   end
-  
+ 
   # Does the actual processing for block text iteration.
   #
   # @param text [Array<String>] the array of text keys to iterate through
@@ -892,7 +892,7 @@ class Game_Interpreter
       end
     end
   end
-  
+ 
   # Retrieves the text of a given key.
   #
   # @param key [String] the key whose text you wish to obtain
@@ -900,7 +900,7 @@ class Game_Interpreter
   def get_text(key)
     SES::ExternalText.get_text(key).strip
   end
-  
+ 
   # Displays the given key's text as scrolling text.
   #
   # @param key [String] the key whose text you wish to display
@@ -921,7 +921,7 @@ class Game_Interpreter
     end
     wait_for_message
   end
-  
+ 
   # Sets up choices based on the given key.
   #
   # @param key [String] the key from which the choices will be drawn
@@ -930,7 +930,7 @@ class Game_Interpreter
     $game_message.load_choices($game_text[key])
     wait_for_message
   end
-  
+ 
   # Displays the given key's text in the message window.
   #
   # @param key [String] the key whose text you wish to display
@@ -959,12 +959,12 @@ class Game_Interpreter
     wait_for_message
   end
 end
-
+ 
 # Window_Base
 # =============================================================================
 # Base class for windows in the game.
 class Window_Base
-  
+ 
   alias_method :en_et_wb_cec, :convert_escape_characters
   # Converts escape characters in the given text.
   #
@@ -981,7 +981,7 @@ class Window_Base
     end
     result
   end
-  
+ 
   # Removes all escape characters from the given text and returns it.
   #
   # @param text [String] the text to adjust
@@ -990,12 +990,12 @@ class Window_Base
     convert_escape_characters(text).gsub(/\e(\w)(\[(\w+)\])?/) {""}
   end
 end
-
+ 
 # Window_ChoiceList
 # ===========================================================================
 # Displays choices for the player to select.
 class Window_ChoiceList < Window_Command
-  
+ 
   alias_method :en_et_wcl_i, :initialize
   # Creates a new instance of Window_ChoiceList.
   #
@@ -1007,14 +1007,14 @@ class Window_ChoiceList < Window_Command
     @contents_height = 0
     en_et_wcl_i(message_window)
   end
-  
+ 
   # Returns the height of the window's contents.
   #
   # @return [Integer] the height of the window's contents
   def contents_height
     @contents_height
   end
-  
+ 
   # Returns a Rect representing the area occupied by the choice at the given
   # index.
   #
@@ -1024,7 +1024,7 @@ class Window_ChoiceList < Window_Command
     unless @choice_rects[index]
       rect = Rect.new
       rect.width = item_width
-      rect.height = item_height 
+      rect.height = item_height
       if $game_message.choices[index]
         rect.height *= $game_message.choices[index].split(/[\r\n]+/).size
       end
@@ -1039,17 +1039,17 @@ class Window_ChoiceList < Window_Command
     end
     @choice_rects[index]
   end
-  
+ 
   alias_method :en_et_wcl_mcw, :max_choice_width
   # Returns the width of the widest choice.
   #
   # @return [Integer] the width of the widest choice
   def max_choice_width
-    $game_message.choices.collect do |s| 
+    $game_message.choices.collect do |s|
       text_size(slice_escape_characters(s)).width
     end.max
   end
-  
+ 
   # Returns the maximum number of items visible at a given time.
   #
   # @return [Integer] the maximum number of items visible at a given time
@@ -1062,14 +1062,14 @@ class Window_ChoiceList < Window_Command
     end
     max
   end
-  
+ 
   # Returns the height of the window without its padding.
   #
   # @return [Integer] the height of the window without its padding
   def real_height
     self.height - standard_padding * 2
   end
-  
+ 
   # Refreshes the window's contents.
   #
   # @return [void]
@@ -1083,14 +1083,14 @@ class Window_ChoiceList < Window_Command
     end
     super
   end
-  
+ 
   # Returns the index of the top row.
   #
   # @return [Integer] the index of the top row
   def top_row
     @top_row
   end
-  
+ 
   # Sets the top row, adjusting the display y of the window's contents to ensure
   # that it is visible.
   #
@@ -1114,7 +1114,7 @@ class Window_ChoiceList < Window_Command
       self.oy = item_rect(i).y
     end
   end
-  
+ 
   if SES::ExternalText::ChoiceReplaceMessageBox == :hidden
     # Updates the size and position of the choice window.
     #
@@ -1202,7 +1202,7 @@ if SES::ExternalText::NameStyle == :box
   # ===========================================================================
   # Creates a window to display the name of the speaker.
   class Window_NameBox < Window_Base
-    
+   
     # Creates a new instance of Window_NameBox.
     #
     # @return [Window_NameBox] a new instance of Window_NameBox
@@ -1215,7 +1215,7 @@ if SES::ExternalText::NameStyle == :box
       @name = ""
       self.arrows_visible = false
     end
-    
+   
     # Sets the display name of the speaker.
     #
     # @param name [String] the name of the speaker
@@ -1243,7 +1243,7 @@ if SES::ExternalText::NameStyle == :box
                                                                           @name)
       end
     end
-    
+   
     # Updates the window.
     #
     # @return [void]
@@ -1252,12 +1252,12 @@ if SES::ExternalText::NameStyle == :box
       set_name($game_message.name) if @name != $game_message.name
     end
   end
-  
+ 
   # Scene_Map
   # ===========================================================================
   # The game's map scene.
   class Scene_Map < Scene_Base
-    
+   
     alias_method :en_et_sm_caw, :create_all_windows
     # Creates all of the windows used by the scene.
     #
@@ -1266,7 +1266,7 @@ if SES::ExternalText::NameStyle == :box
       en_et_sm_caw
       create_namebox
     end
-    
+   
     # Creates the name box used by messages in the scene.
     #
     # @return [void]
@@ -1274,12 +1274,12 @@ if SES::ExternalText::NameStyle == :box
       @namebox = Window_NameBox.new
     end
   end
-
+ 
   # Scene_Battle
   # ===========================================================================
   # The game's battle scene.
   class Scene_Battle < Scene_Base
-    
+   
     # Creates all of the windows used by the scene.
     #
     # @return [void]
@@ -1288,7 +1288,7 @@ if SES::ExternalText::NameStyle == :box
       en_et_sb_caw
       create_namebox
     end
-    
+   
     # Creates the name box used by messages in the scene.
     #
     # @return [void]
@@ -1297,4 +1297,3 @@ if SES::ExternalText::NameStyle == :box
     end
   end
 end
-
