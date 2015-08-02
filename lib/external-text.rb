@@ -1,5 +1,5 @@
 #--
-# External Text v3.3.4 by Enelvon
+# External Text v3.3.5 by Enelvon
 # =============================================================================
 #
 # Summary
@@ -350,6 +350,9 @@ module SES
     # Set this to either :box or :text. :box uses the name box, :text will
     # include the name at the top of each page.
     NameStyle = :box
+    
+    # Whether or not to fit the width of the name box window to the name text.
+    FitNameBoxWidth = true
    
     # The ID of the variable that will receive the selected index from a call to
     # show_choices. This may be used in conditional branches to determine what
@@ -732,8 +735,6 @@ class Game_Message
   #   data
   # @return [void]
   def load_choices(data)
-    @face_name = ''
-    @face_index = 0
     @choices.clear
     data[1].split(/[\r\n]+/).each do |c|
       @choices << wrap_text(c, :choices).join("\n")
@@ -1202,6 +1203,8 @@ if SES::ExternalText::NameStyle == :box
   # ===========================================================================
   # Creates a window to display the name of the speaker.
   class Window_NameBox < Window_Base
+    
+    FIT_WIDTH_TO_NAME = SES::ExternalText::FitNameBoxWidth
    
     # Creates a new instance of Window_NameBox.
     #
@@ -1239,8 +1242,16 @@ if SES::ExternalText::NameStyle == :box
         end
         open unless open?
         create_contents
-        self.draw_text_ex((contents_width - text_size(@name).width) / 2, 0,
-                                                                          @name)
+        name = convert_escape_characters(name)
+        
+        final_width = text_size(name).width
+        
+        if FIT_WIDTH_TO_NAME
+          self.width = final_width + standard_padding * 2
+          create_contents
+        end
+        
+        self.draw_text_ex((contents_width - final_width) / 2, 0, @name)
       end
     end
    
