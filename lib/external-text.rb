@@ -460,7 +460,7 @@ module SES
    
     # The proc (lambda, in this case) called by Game_Message when the
     # show_choices method is used to display choices from External Text.
-    ChoiceProc = lambda { |n| puts n; $game_variables[ChoiceVariable] = n + 1 }
+    ChoiceProc = lambda { |n| $game_variables[ChoiceVariable] = n + 1 }
    
     # Returns a cached Window_Message instance.
     #
